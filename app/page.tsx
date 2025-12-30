@@ -403,8 +403,7 @@ export default function Home() {
           {/* Description */}
           <p className="text-sm sm:text-base text-white/90 text-center max-w-2xl">
             Manufactured in our factories near major cities—built for local delivery by ground.
-            <br className="sm:hidden" />
-            <span className="hidden sm:inline"> </span>
+            <br />
             On-demand production infrastructure built for consistent quality and fast delivery.
           </p>
 
