@@ -2,6 +2,7 @@
 CREATE TABLE IF NOT EXISTS "waitlist-email" (
   id UUID DEFAULT gen_random_uuid() PRIMARY KEY,
   email TEXT NOT NULL UNIQUE,
+  country TEXT,
   created_at TIMESTAMP WITH TIME ZONE DEFAULT NOW()
 );
 

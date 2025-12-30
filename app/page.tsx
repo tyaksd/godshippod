@@ -280,15 +280,35 @@ export default function Home() {
   const currentColor = cityColors[currentCity];
   const currentBackground = cityBackgrounds[currentCity];
 
+  // IPアドレスから国を取得する関数
+  const getCountryFromIP = async (): Promise<string | null> => {
+    try {
+      // 無料のIP Geolocation APIを使用（ipapi.co - 1日1000リクエストまで無料）
+      const response = await fetch('https://ipapi.co/json/');
+      const data = await response.json();
+      return data.country_name || data.country_code || null;
+    } catch (error) {
+      console.error('Error fetching country:', error);
+      return null;
+    }
+  };
+
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     setIsSubmitting(true);
     setMessage(null);
 
     try {
+      // 国を取得（エラーが発生しても処理を続行）
+      const country = await getCountryFromIP();
+
       const { error } = await supabase
         .from('waitlist-email')
-        .insert([{ email, created_at: new Date().toISOString() }]);
+        .insert([{ 
+          email, 
+          country: country || null,
+          created_at: new Date().toISOString() 
+        }]);
 
       if (error) {
         throw error;
