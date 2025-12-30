@@ -15,6 +15,11 @@ const geistMono = Geist_Mono({
 export const metadata: Metadata = {
   title: "Godship",
   description: "Get high-quality tees to your customers worldwide within 3 days. The fastest and most reliable print on demand for clothing brands.",
+  icons: {
+    icon: "/gblack2.png",
+    shortcut: "/gblack2.png",
+    apple: "/gblack2.png",
+  },
   openGraph: {
     title: "Godship - High-Quality Tees Delivered within 3 Days",
     description: "Get high-quality tees to your customers worldwide within 3 days. The fastest and most reliable print on demand for clothing brands.",
