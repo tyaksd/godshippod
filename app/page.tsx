@@ -3,6 +3,7 @@
 import { useState, useEffect } from 'react';
 import Image from 'next/image';
 import { supabase } from '@/lib/supabase';
+import { Tag, TrendingUp, Boxes, Layers, Factory, MapPin } from 'lucide-react';
 
 const cities = ['NY', 'LA', 'London', 'Tokyo'];
 
@@ -19,6 +20,220 @@ const cityBackgrounds: Record<string, { mobile: string; desktop: string }> = {
   'London': { mobile: '/londonsm2.jpg', desktop: '/londonpc.jpg' },
   'Tokyo': { mobile: '/tokyosm.jpg', desktop: '/tokyopc.png' },
 };
+
+/** Local component (put in same file) */
+function FixCard({
+  accent,
+  icon,
+  title,
+  subtitle,
+  tags,
+  body,
+  chips,
+}: {
+  accent: string;
+  icon: React.ReactNode;
+  title: string;
+  subtitle: string;
+  tags: string[];
+  body: string;
+  chips: string[];
+}) {
+  return (
+    <div
+      style={{ ["--accent" as any]: accent } as React.CSSProperties}
+      className="group relative overflow-hidden rounded-2xl border border-white/10 bg-white/[0.035] p-6 backdrop-blur-sm transition hover:border-white/20 hover:bg-white/[0.05]"
+    >
+      {/* Accent glow */}
+      <div
+        aria-hidden="true"
+        className="pointer-events-none absolute inset-0 opacity-[0.14] transition duration-300 group-hover:opacity-[0.30]"
+        style={{
+          background:
+            "radial-gradient(900px circle at 18% 10%, rgb(var(--accent) / 0.22), transparent 55%)",
+        }}
+      />
+      {/* Top tint line */}
+      <div
+        aria-hidden="true"
+        className="pointer-events-none absolute left-0 right-0 top-0 h-px"
+        style={{
+          background:
+            "linear-gradient(90deg, rgb(var(--accent) / 0.0), rgb(var(--accent) / 0.55), rgb(var(--accent) / 0.0))",
+        }}
+      />
+
+      <div className="relative flex items-start justify-between gap-4">
+        {/* Icon + title */}
+        <div className="flex items-start gap-3">
+          <div
+            className="flex h-11 w-11 items-center justify-center rounded-xl border"
+            style={{
+              borderColor: "rgb(var(--accent) / 0.22)",
+              backgroundColor: "rgb(var(--accent) / 0.10)",
+              color: "rgb(255 255 255 / 0.92)",
+              boxShadow: "0 0 0 1px rgba(255,255,255,0.04) inset",
+            }}
+          >
+            {icon}
+          </div>
+
+          <div className="min-w-0">
+            <div className="text-sm font-semibold text-white">{title}</div>
+            <div className="mt-0.5 text-xs text-white/60">{subtitle}</div>
+
+            {/* Accent underline */}
+            <div
+              className="mt-2 h-[2px] w-10 rounded-full"
+              style={{ backgroundColor: "rgb(var(--accent) / 0.75)" }}
+            />
+          </div>
+        </div>
+
+        {/* Tags (colored) */}
+        <div className="flex flex-wrap justify-end gap-2">
+          {tags.map((t) => (
+            <span
+              key={t}
+              className="inline-flex items-center rounded-full border px-2.5 py-1 text-[11px] font-medium tracking-wide"
+              style={{
+                borderColor: "rgb(var(--accent) / 0.22)",
+                backgroundColor: "rgb(var(--accent) / 0.08)",
+                color: "rgb(255 255 255 / 0.84)",
+              }}
+            >
+              {t}
+            </span>
+          ))}
+        </div>
+      </div>
+
+      <p className="relative mt-4 text-sm leading-relaxed text-white/70">
+        {body}
+      </p>
+
+      {/* Bottom chips */}
+      <div className="relative mt-5 flex flex-wrap gap-2">
+        {chips.map((c) => (
+          <span
+            key={c}
+            className="inline-flex items-center rounded-full border px-2.5 py-1 text-[11px] font-medium tracking-wide"
+            style={{
+              borderColor: "rgb(var(--accent) / 0.16)",
+              backgroundColor: "rgba(255,255,255,0.03)",
+              color: "rgb(255 255 255 / 0.78)",
+            }}
+          >
+            {c}
+          </span>
+        ))}
+      </div>
+    </div>
+  );
+}
+
+function UseCaseCard({
+  accent,
+  eyebrow,
+  title,
+  body,
+  outcomes,
+}: {
+  accent: string;
+  eyebrow: string;
+  title: string;
+  body: string;
+  outcomes: string[];
+}) {
+  return (
+    <div
+      style={{ ["--accent" as any]: accent } as React.CSSProperties}
+      className="group relative overflow-hidden rounded-2xl border border-white/10 bg-white/[0.035] p-7 backdrop-blur-sm transition hover:border-white/20 hover:bg-white/[0.05]"
+    >
+      {/* color glow (stronger + more visible) */}
+      <div
+        aria-hidden="true"
+        className="pointer-events-none absolute inset-0 opacity-[0.18] transition duration-300 group-hover:opacity-[0.34]"
+        style={{
+          background:
+            "radial-gradient(900px circle at 18% 12%, rgb(var(--accent) / 0.22), transparent 55%)",
+        }}
+      />
+      {/* top subtle tint strip */}
+      <div
+        aria-hidden="true"
+        className="pointer-events-none absolute left-0 right-0 top-0 h-px"
+        style={{ background: "linear-gradient(90deg, rgb(var(--accent) / 0.0), rgb(var(--accent) / 0.55), rgb(var(--accent) / 0.0))" }}
+      />
+
+      <div className="relative">
+        {/* Eyebrow badge: now visibly colored */}
+        <div
+          className="inline-flex items-center gap-2 rounded-full border px-3 py-1 text-xs font-medium"
+          style={{
+            borderColor: "rgb(var(--accent) / 0.28)",
+            backgroundColor: "rgb(var(--accent) / 0.10)",
+            color: "rgb(255 255 255 / 0.92)",
+          }}
+        >
+          <span
+            className="h-1.5 w-1.5 rounded-full"
+            style={{ backgroundColor: "rgb(var(--accent) / 0.95)" }}
+          />
+          {eyebrow}
+        </div>
+
+        <h3 className="mt-4 text-lg font-semibold tracking-tight text-white">
+          {title}
+        </h3>
+
+        {/* accent underline (makes the card identity obvious) */}
+        <div
+          className="mt-3 h-[2px] w-10 rounded-full"
+          style={{ backgroundColor: "rgb(var(--accent) / 0.75)" }}
+        />
+
+        <p className="mt-4 text-sm leading-relaxed text-white/70">
+          {body}
+        </p>
+
+        <div className="mt-6 border-t border-white/10 pt-5">
+          <div className="text-xs text-white/55">Outcomes</div>
+
+          {/* outcomes block with left accent rail */}
+          <div className="mt-3 grid gap-2 relative pl-4">
+            <div
+              aria-hidden="true"
+              className="absolute left-0 top-0 h-full w-[2px] rounded-full"
+              style={{
+                background:
+                  "linear-gradient(to bottom, rgb(var(--accent) / 0.55), rgb(var(--accent) / 0.05))",
+              }}
+            />
+            {outcomes.map((t) => (
+              <div key={t} className="flex items-start gap-2 text-sm">
+                <span
+                  className="mt-1.5 h-1.5 w-1.5 rounded-full"
+                  style={{ backgroundColor: "rgb(var(--accent) / 0.9)" }}
+                />
+                <span style={{ color: "rgb(255 255 255 / 0.86)" }}>
+                  {t}
+                </span>
+              </div>
+            ))}
+          </div>
+        </div>
+
+        {/* bottom border tint */}
+        <div
+          aria-hidden="true"
+          className="pointer-events-none mt-6 h-px w-full"
+          style={{ backgroundColor: "rgb(var(--accent) / 0.14)" }}
+        />
+      </div>
+    </div>
+  );
+}
 
 export default function Home() {
   const [currentIndex, setCurrentIndex] = useState(0);
@@ -93,7 +308,7 @@ export default function Home() {
   };
 
   return (
-    <div className="bg-white">
+    <div className="bg-white overflow-x-hidden">
       {/* First Page - Hero Section */}
       <section className="relative flex min-h-screen items-center justify-center px-4 bg-cover bg-center bg-no-repeat">
         {/* Background images */}
@@ -231,7 +446,7 @@ export default function Home() {
       </section>
 
       {/* Second Page - POD Challenges */}
-      <section className="relative overflow-hidden bg-[#070A12] text-zinc-100 min-h-screen">
+      <section className="relative overflow-x-hidden overflow-y-visible bg-[#070A12] text-zinc-100 min-h-screen">
         {/* subtle background */}
         <div className="pointer-events-none absolute inset-0">
           {/* top glow */}
@@ -298,9 +513,7 @@ export default function Home() {
                   That kills repeat purchases.
                 </p>
 
-                {/* tiny accent line */}
-                <div className="mt-6 h-px w-10 bg-white/10 transition group-hover:bg-white/20" />
-              </div>
+                 </div>
             </div>
 
             {/* Challenge 2: Quality roulette */}
@@ -332,9 +545,7 @@ export default function Home() {
                   Quality becomes a gamble.
                 </p>
 
-                {/* tiny accent line */}
-                <div className="mt-6 h-px w-10 bg-white/10 transition group-hover:bg-white/20" />
-              </div>
+                 </div>
             </div>
 
             {/* Challenge 3: Not your brand */}
@@ -392,347 +603,321 @@ export default function Home() {
       </section>
 
       {/* Third Page - The Fix */}
-      <section className="relative min-h-screen py-20 bg-black">
+      <section className="relative overflow-x-hidden overflow-y-hidden bg-[#091126] pt-8 pb-12">
         {/* Background */}
         <div className="pointer-events-none absolute inset-0 -z-10">
-          <div className="absolute inset-0 bg-gradient-to-b from-black via-black to-black" />
-          <div className="absolute left-1/2 top-0 h-[520px] w-[920px] -translate-x-1/2 rounded-full bg-white/5 blur-3xl opacity-60" />
+          {/* base */}
+          <div className="absolute inset-0 bg-gradient-to-b from-[#091126] via-[#091126] to-black" />
+
+          {/* cool glow */}
+          <div className="absolute left-1/2 top-[-140px] h-[560px] w-[980px] -translate-x-1/2 rounded-full bg-sky-300/10 blur-3xl opacity-70" />
+          <div className="absolute right-[-220px] top-[220px] h-[520px] w-[520px] rounded-full bg-cyan-300/8 blur-3xl opacity-50 hidden md:block" />
+
+          {/* subtle grid */}
+          <div
+            className="absolute inset-0 opacity-[0.045]"
+            style={{
+              backgroundImage:
+                "linear-gradient(to right, rgba(255,255,255,0.35) 1px, transparent 1px), linear-gradient(to bottom, rgba(255,255,255,0.35) 1px, transparent 1px)",
+              backgroundSize: "76px 76px",
+            }}
+          />
+
+          {/* top hairline */}
           <div className="absolute inset-x-0 top-0 h-px bg-white/10" />
+
+          {/* vignette */}
+          <div className="absolute inset-0 bg-gradient-to-b from-transparent via-black/20 to-black/60" />
         </div>
 
         <div className="mx-auto w-full max-w-6xl px-6">
           {/* Header */}
-          <div className="flex flex-col items-start gap-4">
-            <div className="flex flex-wrap items-center gap-2">
-              <span className="inline-flex items-center rounded-full border border-white/10 bg-white/5 px-2.5 py-1 text-[11px] font-medium tracking-wide text-white/80 backdrop-blur">
-                THE FIX
-              </span>
-              <span className="inline-flex items-center rounded-full border border-white/10 bg-white/5 px-2.5 py-1 text-[11px] font-medium tracking-wide text-white/80 backdrop-blur">
-                SKU-LIMITED
-              </span>
-              <span className="inline-flex items-center rounded-full border border-white/10 bg-white/5 px-2.5 py-1 text-[11px] font-medium tracking-wide text-white/80 backdrop-blur">
-                IN-HOUSE
-              </span>
-              <span className="inline-flex items-center rounded-full border border-white/10 bg-white/5 px-2.5 py-1 text-[11px] font-medium tracking-wide text-white/80 backdrop-blur">
-                CITY-LOCAL
-              </span>
-            </div>
+          <div className="max-w-3xl">
+            <span className="inline-flex items-center gap-2 rounded-full border border-white/10 bg-white/[0.035] px-3 py-1 text-xs text-white/70 backdrop-blur-md">
+              <span className="h-1.5 w-1.5 rounded-full bg-sky-300/80" />
+              THE FIX
+            </span>
 
-            <h2 className="text-3xl font-semibold tracking-tight text-white md:text-4xl">
-              One city. One factory. One standard.
+            <h2 className="mt-5 text-4xl font-semibold tracking-tight md:text-6xl">
+            The new standard.
             </h2>
 
-            <p className="max-w-2xl text-sm leading-relaxed text-white/70 md:text-base">
-              We solve "Not your brand" by limiting SKUs for efficiency, running a fully controlled
-              in-house factory near major cities, and shipping locally for speed and consistency.
+            <p className="mt-4 text-sm leading-relaxed text-white/70 md:text-base">
+            Replace legacy POD chaos with a controlled system — tight scope, owned ops, local delivery, and brand-linked AI that predicts demand.
             </p>
           </div>
 
-          {/* Flow row */}
-          <div className="mt-10">
-            <div className="grid grid-cols-1 items-stretch gap-4 md:grid-cols-[1fr_auto_1fr_auto_1fr]">
-              {/* SKU Focus Card */}
-              <div className="group relative overflow-hidden rounded-2xl border border-white/10 bg-white/[0.04] p-6 shadow-[0_0_0_1px_rgba(255,255,255,0.03)] backdrop-blur">
-                <div className="absolute inset-0 opacity-0 transition-opacity duration-300 group-hover:opacity-100">
-                  <div className="absolute -left-24 -top-24 h-48 w-48 rounded-full bg-white/5 blur-2xl" />
-                  <div className="absolute -bottom-24 -right-24 h-48 w-48 rounded-full bg-white/5 blur-2xl" />
-                </div>
-                <div className="relative flex items-start justify-between gap-4">
-                  <div className="flex items-center gap-3">
-                    <div className="flex h-11 w-11 items-center justify-center rounded-xl border border-white/10 bg-white/5">
-                      <svg viewBox="0 0 24 24" className="h-6 w-6 text-white/85" fill="none" aria-hidden="true">
-                        <path d="M12 2.5 20 7v10l-8 4.5L4 17V7l8-4.5Z" stroke="currentColor" strokeWidth="1.5" opacity="0.9" />
-                        <path d="M12 2.5V12m0 0 8-5M12 12 4 7m8 5v9.5" stroke="currentColor" strokeWidth="1.5" opacity="0.55" />
-                      </svg>
-                    </div>
-                    <div className="space-y-1">
-                      <div className="text-sm font-semibold text-white">SKU Focus</div>
-                      <div className="text-xs text-white/60">SKU-LIMITED</div>
-                    </div>
-                  </div>
-                  <div className="hidden md:block">
-                    <span className="inline-flex items-center rounded-full border border-white/10 bg-white/5 px-2.5 py-1 text-[11px] font-medium tracking-wide text-white/80 backdrop-blur">
-                      CONTROLLED
-                    </span>
-                  </div>
-                </div>
-                <p className="relative mt-4 text-sm leading-relaxed text-white/70">
-                  Start narrow to maximize throughput, repeatability, and quality control — no chaos, no surprises.
-                </p>
-                <div className="relative mt-5 flex flex-wrap gap-2">
-                  <span className="inline-flex items-center rounded-full border border-white/10 bg-white/5 px-2.5 py-1 text-[11px] font-medium tracking-wide text-white/80 backdrop-blur">
-                    SKU-LIMITED
-                  </span>
-                  <span className="inline-flex items-center rounded-full border border-white/10 bg-white/5 px-2.5 py-1 text-[11px] font-medium tracking-wide text-white/80 backdrop-blur">
-                    MEASURED
-                  </span>
-                  <span className="inline-flex items-center rounded-full border border-white/10 bg-white/5 px-2.5 py-1 text-[11px] font-medium tracking-wide text-white/80 backdrop-blur">
-                    CONSISTENT
-                  </span>
-                </div>
-              </div>
+          {/* 4 Pillars */}
+          <div className="mt-10 grid gap-4 md:grid-cols-2">
+            <FixCard
+              accent="125 211 252" // Sky: throughput / speed
+              icon={
+                <svg viewBox="0 0 24 24" className="h-5 w-5" fill="none" aria-hidden="true">
+                  <path d="M6 7.5h12M7.5 11.5h9M9 15.5h6" stroke="currentColor" strokeWidth="1.6" strokeLinecap="round" opacity="0.9" />
+                  <path d="M4.5 6.5A2 2 0 0 1 6.5 4.5h11A2 2 0 0 1 19.5 6.5v11a2 2 0 0 1-2 2h-11a2 2 0 0 1-2-2v-11Z" stroke="currentColor" strokeWidth="1.4" opacity="0.55" />
+                </svg>
+              }
+              title="SKU-limited"
+              subtitle="Repeatability by design"
+              tags={["THROUGHPUT", "CONSISTENCY"]}
+              body="Start narrow to maximize throughput, consistency, and quality control."
+              chips={["MEASURED", "STANDARDIZED"]}
+            />
 
-              {/* Arrow */}
-              <div className="hidden items-center justify-center md:flex">
-                <div className="relative">
-                  <div className="h-px w-16 bg-white/10" />
-                  <div className="absolute right-0 top-1/2 -translate-y-1/2 rotate-45">
-                    <div className="h-2 w-2 border-r border-t border-white/20" />
-                  </div>
-                </div>
-              </div>
+            <FixCard
+              accent="103 232 249" // Cyan: control / ops
+              icon={
+                <svg viewBox="0 0 24 24" className="h-5 w-5" fill="none" aria-hidden="true">
+                  <path d="M4.5 19.5v-8l6 3.5V11l6 3.5V11l3 1.8v6.7H4.5Z" stroke="currentColor" strokeWidth="1.6" opacity="0.9" />
+                  <path d="M8 19.5v-4m4 4v-4m4 4v-4" stroke="currentColor" strokeWidth="1.6" opacity="0.55" />
+                  <path d="M6.5 9V7.2A2.2 2.2 0 0 1 8.7 5h2" stroke="currentColor" strokeWidth="1.4" opacity="0.55" />
+                </svg>
+              }
+              title="In-house factory"
+              subtitle="Owned ops, end-to-end control"
+              tags={["CONTROL",　"SPEED", "TRACEABLE"]}
+              body="Track every step. Fix issues at the source. Keep quality consistent."
+              chips={["ACCOUNTABLE", "STANDARDIZED", "< 24-HOUR TARGET"]}
+            />
 
-              {/* In-house Factory Card */}
-              <div className="group relative overflow-hidden rounded-2xl border border-white/10 bg-white/[0.04] p-6 shadow-[0_0_0_1px_rgba(255,255,255,0.03)] backdrop-blur">
-                <div className="absolute inset-0 opacity-0 transition-opacity duration-300 group-hover:opacity-100">
-                  <div className="absolute -left-24 -top-24 h-48 w-48 rounded-full bg-white/5 blur-2xl" />
-                  <div className="absolute -bottom-24 -right-24 h-48 w-48 rounded-full bg-white/5 blur-2xl" />
-                </div>
-                <div className="relative flex items-start justify-between gap-4">
-                  <div className="flex items-center gap-3">
-                    <div className="flex h-11 w-11 items-center justify-center rounded-xl border border-white/10 bg-white/5">
-                      <svg viewBox="0 0 24 24" className="h-6 w-6 text-white/85" fill="none" aria-hidden="true">
-                        <path d="M3.5 20.5v-9l6 3.5V11l6 3.5V11l5 3v6.5H3.5Z" stroke="currentColor" strokeWidth="1.5" opacity="0.9" />
-                        <path d="M8 20.5v-4m4 4v-4m4 4v-4" stroke="currentColor" strokeWidth="1.5" opacity="0.55" />
-                        <path d="M5.5 9.5V6.5a2 2 0 0 1 2-2h2" stroke="currentColor" strokeWidth="1.5" opacity="0.55" />
-                      </svg>
-                    </div>
-                    <div className="space-y-1">
-                      <div className="text-sm font-semibold text-white">In-house Factory</div>
-                      <div className="text-xs text-white/60">IN-HOUSE</div>
-                    </div>
-                  </div>
-                  <div className="hidden md:block">
-                    <span className="inline-flex items-center rounded-full border border-white/10 bg-white/5 px-2.5 py-1 text-[11px] font-medium tracking-wide text-white/80 backdrop-blur">
-                      CONTROLLED
-                    </span>
-                  </div>
-                </div>
-                <p className="relative mt-4 text-sm leading-relaxed text-white/70">
-                  Purpose-built workflow, owned operations, and a custom system tracking every step end-to-end.
-                </p>
-                <div className="relative mt-5 flex flex-wrap gap-2">
-                  <span className="inline-flex items-center rounded-full border border-white/10 bg-white/5 px-2.5 py-1 text-[11px] font-medium tracking-wide text-white/80 backdrop-blur">
-                    IN-HOUSE
-                  </span>
-                  <span className="inline-flex items-center rounded-full border border-white/10 bg-white/5 px-2.5 py-1 text-[11px] font-medium tracking-wide text-white/80 backdrop-blur">
-                    MEASURED
-                  </span>
-                  <span className="inline-flex items-center rounded-full border border-white/10 bg-white/5 px-2.5 py-1 text-[11px] font-medium tracking-wide text-white/80 backdrop-blur">
-                    CONSISTENT
-                  </span>
-                </div>
-              </div>
+            <FixCard
+              accent="165 180 252" // Indigo: geo / delivery
+              icon={
+                <svg viewBox="0 0 24 24" className="h-5 w-5" fill="none" aria-hidden="true">
+                  <path d="M12 21s7-5.2 7-11a7 7 0 1 0-14 0c0 5.8 7 11 7 11Z" stroke="currentColor" strokeWidth="1.6" opacity="0.9" />
+                  <path d="M12 13a3 3 0 1 0 0-6 3 3 0 0 0 0 6Z" stroke="currentColor" strokeWidth="1.6" opacity="0.55" />
+                </svg>
+              }
+              title="City-local delivery"
+              subtitle="Metro-only for reliability"
+              tags={["SPEED", "RELIABILITY"]}
+              body="Factories near major metros ship exclusively to local customers — faster and more predictable."
+              chips={["METRO-ONLY", "2-DAY TARGET"]}
+            />
 
-              {/* Arrow */}
-              <div className="hidden items-center justify-center md:flex">
-                <div className="relative">
-                  <div className="h-px w-16 bg-white/10" />
-                  <div className="absolute right-0 top-1/2 -translate-y-1/2 rotate-45">
-                    <div className="h-2 w-2 border-r border-t border-white/20" />
-                  </div>
-                </div>
-              </div>
+            <FixCard
+              accent="244 114 182" // Pink: intelligence / AI (stands out, "future")
+              icon={
+                <svg viewBox="0 0 24 24" className="h-5 w-5" fill="none" aria-hidden="true">
+                  <path d="M9 7.5a3 3 0 0 1 6 0v1.2a2 2 0 0 0 1.2 1.9l.6.3a3 3 0 0 1 0 5.2l-.6.3A2 2 0 0 0 15 18.8V20a3 3 0 0 1-6 0v-1.2a2 2 0 0 0-1.2-1.9l-.6-.3a3 3 0 0 1 0-5.2l.6-.3A2 2 0 0 0 9 8.7V7.5Z" stroke="currentColor" strokeWidth="1.6" opacity="0.9" />
+                  <path d="M12 9.2v5.6" stroke="currentColor" strokeWidth="1.6" opacity="0.55" strokeLinecap="round" />
+                </svg>
+              }
+              title="Brand-linked AI"
+              subtitle="Context → forecasting → inventory"
+              tags={["INTELLIGENCE", "FORECASTING"]}
+              body="Connect with your brand to understand context (drops, audience, creatives) and predict demand — so production stays fast without losing control."
+              chips={["DEMAND FORECASTING", "CONTEXT-AWARE"]}
+            />
+          </div>
+        </div>
+      </section>
 
-              {/* City-local Shipping Card */}
-              <div className="group relative overflow-hidden rounded-2xl border border-white/10 bg-white/[0.04] p-6 shadow-[0_0_0_1px_rgba(255,255,255,0.03)] backdrop-blur">
-                <div className="absolute inset-0 opacity-0 transition-opacity duration-300 group-hover:opacity-100">
-                  <div className="absolute -left-24 -top-24 h-48 w-48 rounded-full bg-white/5 blur-2xl" />
-                  <div className="absolute -bottom-24 -right-24 h-48 w-48 rounded-full bg-white/5 blur-2xl" />
-                </div>
-                <div className="relative flex items-start justify-between gap-4">
-                  <div className="flex items-center gap-3">
-                    <div className="flex h-11 w-11 items-center justify-center rounded-xl border border-white/10 bg-white/5">
-                      <svg viewBox="0 0 24 24" className="h-6 w-6 text-white/85" fill="none" aria-hidden="true">
-                        <path d="M12 21s7-5.2 7-11a7 7 0 1 0-14 0c0 5.8 7 11 7 11Z" stroke="currentColor" strokeWidth="1.5" opacity="0.9" />
-                        <path d="M12 13a3 3 0 1 0 0-6 3 3 0 0 0 0 6Z" stroke="currentColor" strokeWidth="1.5" opacity="0.55" />
-                      </svg>
-                    </div>
-                    <div className="space-y-1">
-                      <div className="text-sm font-semibold text-white">City-local Shipping</div>
-                      <div className="text-xs text-white/60">CITY-LOCAL</div>
-                    </div>
-                  </div>
-                  <div className="hidden md:block">
-                    <span className="inline-flex items-center rounded-full border border-white/10 bg-white/5 px-2.5 py-1 text-[11px] font-medium tracking-wide text-white/80 backdrop-blur">
-                      CONTROLLED
-                    </span>
-                  </div>
-                </div>
-                <p className="relative mt-4 text-sm leading-relaxed text-white/70">
-                  Factories near major metros ship only to local residents — faster delivery and tighter experience control.
-                </p>
-                <div className="relative mt-5 flex flex-wrap gap-2">
-                  <span className="inline-flex items-center rounded-full border border-white/10 bg-white/5 px-2.5 py-1 text-[11px] font-medium tracking-wide text-white/80 backdrop-blur">
-                    CITY-LOCAL
-                  </span>
-                  <span className="inline-flex items-center rounded-full border border-white/10 bg-white/5 px-2.5 py-1 text-[11px] font-medium tracking-wide text-white/80 backdrop-blur">
-                    MEASURED
-                  </span>
-                  <span className="inline-flex items-center rounded-full border border-white/10 bg-white/5 px-2.5 py-1 text-[11px] font-medium tracking-wide text-white/80 backdrop-blur">
-                    CONSISTENT
-                  </span>
+      {/* Fourth Page — We start in NY */}
+      <section className="relative min-h-screen overflow-hidden pt-12 pb-10">
+        {/* Background images - 一番下に配置 */}
+        <div className="absolute inset-0 z-0">
+          <Image
+            src="/ny4s.jpg"
+            alt="Background"
+            fill
+            className="object-cover sm:hidden transition-opacity duration-500"
+            priority
+          />
+            <Image
+            src="/ny4.jpg"
+            alt="Background"
+            fill
+            className="hidden sm:block object-cover transition-opacity duration-500"
+            priority
+          />
+        </div>
+        {/* Background overlay */}
+        <div className="pointer-events-none absolute inset-0 z-0">
+          <div className="absolute inset-0 bg-gradient-to-b from-[#05060A]/10 via-[#05060A]/20 to-black/30" />
+
+          {/* cool glow */}
+          <div className="absolute left-1/2 top-[-160px] h-[620px] w-[980px] -translate-x-1/2 rounded-full bg-sky-300/10 blur-3xl opacity-70" />
+          <div className="absolute right-[-220px] bottom-[-120px] h-[520px] w-[520px] rounded-full bg-cyan-300/10 blur-3xl opacity-60 hidden md:block" />
+
+          {/* subtle grid */}
+          <div
+            className="absolute inset-0 opacity-[0.04]"
+            style={{
+              backgroundImage:
+                "linear-gradient(to right, rgba(255,255,255,0.35) 1px, transparent 1px), linear-gradient(to bottom, rgba(255,255,255,0.35) 1px, transparent 1px)",
+              backgroundSize: "80px 80px",
+            }}
+          />
+
+          <div className="absolute inset-0 bg-gradient-to-b from-transparent via-black/10 to-black/30" />
+        </div>
+
+        <div className="mx-auto max-w-6xl px-6 relative z-10">
+          {/* Header */}
+          <div className="max-w-3xl">
+            <span className="inline-flex items-center gap-2 rounded-full border border-white/10 bg-white/[0.035] px-3 py-1 text-xs text-white/70 backdrop-blur-md">
+              <span className="h-1.5 w-1.5 rounded-full bg-sky-300/80" />
+              EXECUTION
+            </span>
+
+            <h2 className="mt-5 text-4xl font-semibold tracking-tight text-white md:text-6xl">
+              We start in NY.
+            </h2>
+          </div>
+
+          {/* Main content */}
+          <div className="mt-8 grid gap-10 md:grid-cols-12">
+            {/* Globe / Map */}
+            <div className="relative md:col-span-7">
+              <div className="relative aspect-square max-w-[520px] rounded-full border border-white/10 bg-white/[0.02] backdrop-blur-md">
+                {/* Globe SVG */}
+                <svg
+                  viewBox="0 0 520 520"
+                  fill="none"
+                  aria-hidden="true"
+                  className="absolute inset-0 h-full w-full"
+                >
+                  <defs>
+                    {/* soft continent fade */}
+                    <radialGradient id="continentFade" cx="50%" cy="45%" r="70%">
+                      <stop offset="0%" stopColor="rgba(255,255,255,0.10)" />
+                      <stop offset="100%" stopColor="rgba(255,255,255,0.02)" />
+                    </radialGradient>
+                    {/* NY glow */}
+                    <radialGradient id="nyGlow" cx="50%" cy="50%" r="50%">
+                      <stop offset="0%" stopColor="rgba(125,211,252,0.95)" />
+                      <stop offset="55%" stopColor="rgba(125,211,252,0.35)" />
+                      <stop offset="100%" stopColor="rgba(125,211,252,0.00)" />
+                    </radialGradient>
+                    {/* globe clip */}
+                    <clipPath id="globeClip">
+                      <circle cx="260" cy="260" r="232" />
+                    </clipPath>
+                    {/* subtle vignette */}
+                    <radialGradient id="globeVignette" cx="50%" cy="45%" r="75%">
+                      <stop offset="0%" stopColor="rgba(255,255,255,0.06)" />
+                      <stop offset="55%" stopColor="rgba(255,255,255,0.02)" />
+                      <stop offset="100%" stopColor="rgba(0,0,0,0.55)" />
+                    </radialGradient>
+                  </defs>
+                  {/* Outer ring */}
+                  <circle cx="260" cy="260" r="232" stroke="rgba(255,255,255,0.10)" strokeWidth="1.5" />
+                  {/* Everything inside the globe */}
+                  <g clipPath="url(#globeClip)">
+                    {/* Base subtle lighting */}
+                    <rect x="0" y="0" width="520" height="520" fill="rgba(255,255,255,0.02)" />
+                    <circle cx="220" cy="200" r="260" fill="rgba(255,255,255,0.03)" />
+                    {/* Grid: latitudes */}
+                    {[...Array(7)].map((_, i) => (
+                      <ellipse
+                        key={`lat-${i}`}
+                        cx="260"
+                        cy="260"
+                        rx={220}
+                        ry={220 - i * 30}
+                        stroke="rgba(255,255,255,0.08)"
+                        strokeWidth="1"
+                      />
+                    ))}
+                    {/* Grid: longitudes */}
+                    {[...Array(6)].map((_, i) => (
+                      <ellipse
+                        key={`lon-${i}`}
+                        cx="260"
+                        cy="260"
+                        rx={220 - i * 30}
+                        ry={220}
+                        stroke="rgba(255,255,255,0.08)"
+                        strokeWidth="1"
+                      />
+                    ))}
+                    {/* Continents (abstract, subtle) */}
+                    {/* Americas-ish */}
+                    <path
+                      d="M210 170c26-24 60-34 92-24 24 8 42 26 46 46 3 14-3 28-16 36-14 8-30 10-44 14-18 4-26 12-30 28-5 20-20 38-44 44-22 5-40-10-36-30 4-20 16-34 26-48 12-16 12-32-2-46-10-10-14-22-12-36 1-10 8-20 20-30z"
+                      fill="url(#continentFade)"
+                      opacity="0.85"
+                    />
+                   
+                    {/* Vignette overlay */}
+                    <rect x="0" y="0" width="520" height="520" fill="url(#globeVignette)" opacity="0.9" />
+                    {/* City dots */}
+                    {[
+                      { name: "New York", x: 330, y: 230, active: true },
+                      { name: "Los Angeles", x: 250, y: 255, active: false },
+                      { name: "London", x: 355, y: 215, active: false },
+                      { name: "Tokyo", x: 430, y: 250, active: false },
+                    ].map((c) => (
+                      <g key={c.name}>
+                        {c.active ? (
+                          <>
+                            {/* glow */}
+                            <circle cx={c.x} cy={c.y} r="22" fill="url(#nyGlow)" />
+                            {/* core dot */}
+                            <circle cx={c.x} cy={c.y} r="5" fill="rgba(125,211,252,0.95)" />
+                          </>
+                        ) : (
+                          <>
+                            <circle cx={c.x} cy={c.y} r="3.5" fill="rgba(255,255,255,0.22)" />
+                          </>
+                        )}
+                      </g>
+                    ))}
+                    {/* subtle terminator line (optional, adds depth) */}
+                    <path
+                      d="M85 360c70-60 150-95 240-95 70 0 130 18 180 50"
+                      stroke="rgba(255,255,255,0.06)"
+                      strokeWidth="2"
+                      opacity="0.7"
+                    />
+                  </g>
+                </svg>
+
+                {/* Label */}
+                <div className="absolute right-[18%] top-[38%] flex items-center gap-2 rounded-full border border-white/10 bg-white/[0.05] px-3 py-1 text-xs text-white/80 backdrop-blur-md">
+                  <span className="h-1.5 w-1.5 rounded-full bg-sky-300" />
+                  New York
                 </div>
               </div>
             </div>
-          </div>
 
-          {/* Pilot */}
-          <div className="mt-6">
-            <div className="relative overflow-hidden rounded-3xl border border-white/10 bg-[#070A12]">
-              {/* Background layers */}
-              <div className="pointer-events-none absolute inset-0">
-                {/* soft glow */}
-                <div className="absolute -top-28 left-12 h-[320px] w-[520px] rounded-full bg-white/6 blur-3xl" />
-                <div className="absolute -bottom-36 right-[-140px] h-[380px] w-[520px] rounded-full bg-white/5 blur-3xl" />
-
-                {/* subtle grid */}
-                <div
-                  className="absolute inset-0 opacity-[0.05]"
-                  style={{
-                    backgroundImage:
-                      "linear-gradient(to right, rgba(255,255,255,0.35) 1px, transparent 1px), linear-gradient(to bottom, rgba(255,255,255,0.35) 1px, transparent 1px)",
-                    backgroundSize: "72px 72px",
-                  }}
-                />
-
-                {/* NYC map watermark */}
-                <svg viewBox="0 0 520 520" fill="none" aria-hidden="true" className="absolute right-[-80px] top-[-40px] h-[520px] w-[520px] opacity-[0.28]">
-                  <path
-                    d="M275 60c35 18 55 54 50 92-6 46-6 70 6 105 16 48 14 83-6 122-22 42-50 70-72 93-23 24-39 43-44 72-5 28-26 41-52 31-25-9-37-32-29-56 8-24 24-43 37-62 16-23 20-38 13-66-9-35-7-73 5-117 11-42 14-78 8-113-6-33 4-70 29-88 17-12 36-17 55-13z"
-                    stroke="rgba(255,255,255,0.14)"
-                    strokeWidth="2"
-                  />
-                  {Array.from({ length: 10 }).map((_, i) => (
-                    <path
-                      key={i}
-                      d={`M160 ${110 + i * 28} C 220 ${100 + i * 28}, 290 ${120 + i * 28}, 355 ${110 + i * 28}`}
-                      stroke="rgba(255,255,255,0.06)"
-                      strokeWidth="1"
-                    />
-                  ))}
-                  <circle cx="300" cy="210" r="6" fill="rgba(255,255,255,0.22)" />
-                  <circle cx="300" cy="210" r="14" fill="rgba(255,255,255,0.08)" />
-                </svg>
-
-                {/* vignette */}
-                <div className="absolute inset-0 bg-gradient-to-b from-transparent via-[#070A12]/35 to-[#070A12]" />
-              </div>
-
-              <div className="relative p-7 md:p-10">
-                {/* Top row: tags + proof */}
-                <div className="flex flex-wrap items-center justify-between gap-3">
-                  <div className="flex flex-wrap gap-2">
-                    <span className="inline-flex items-center rounded-full border border-white/10 bg-white/[0.03] px-3 py-1 text-xs text-zinc-200/80">
-                      NYC PILOT
-                    </span>
-                    <span className="inline-flex items-center rounded-full border border-white/10 bg-white/[0.03] px-3 py-1 text-xs text-zinc-200/80">
-                      ONE SKU
-                    </span>
-                    <span className="inline-flex items-center rounded-full border border-white/10 bg-white/[0.03] px-3 py-1 text-xs text-zinc-200/80">
-                      LOCAL-ONLY
-                    </span>
-                  </div>
-                  <div className="flex items-center gap-2">
-                    <span className="inline-flex items-center rounded-full border border-white/14 bg-white/[0.06] px-3 py-1 text-xs text-zinc-100">
-                      Proof before scale
-                    </span>
-                  </div>
+            {/* Rules */}
+            <div className="md:col-span-5">
+              <div className="space-y-6">
+                {/* Rule cards */}
+                <div className="rounded-2xl border border-white/10 bg-white/[0.045] p-6 backdrop-blur-sm">
+                  <div className="text-sm font-semibold text-white">Black tee only</div>
+                  <p className="mt-2 text-sm text-white/70">
+                    One SKU to eliminate variation and maximize throughput.
+                  </p>
                 </div>
 
-                {/* Main: 2-column layout */}
-                <div className="mt-7 grid gap-8 md:grid-cols-12 md:gap-10">
-                  {/* Left: narrative */}
-                  <div className="md:col-span-7">
-                    <h3 className="text-2xl font-semibold tracking-tight text-zinc-100 md:text-3xl">
-                      NYC Metro Pilot
-                    </h3>
-                    <p className="mt-3 max-w-xl text-sm leading-relaxed text-zinc-300/80 md:text-base">
-                      We start with a single factory near NYC and a single SKU — the{" "}
-                      <span className="text-zinc-100 font-medium">black tee</span>.
-                      Shipping is limited to NYC-area customers to validate{" "}
-                      <span className="text-zinc-100 font-medium">
-                        speed, consistency, and control
-                      </span>{" "}
-                      end-to-end.
-                    </p>
-
-                    {/* Mini flow (makes it feel "system-y") */}
-                    <div className="mt-6 inline-flex items-center gap-3 rounded-2xl border border-white/10 bg-white/[0.03] px-4 py-3">
-                      <span className="text-xs text-zinc-300/80">Flow</span>
-                      <span className="h-1 w-1 rounded-full bg-white/25" />
-                      <span className="text-xs font-medium text-zinc-100">Factory</span>
-                      <span className="text-xs text-zinc-300/70">→</span>
-                      <span className="text-xs font-medium text-zinc-100">Print</span>
-                      <span className="text-xs text-zinc-300/70">→</span>
-                      <span className="text-xs font-medium text-zinc-100">Ship</span>
-                      <span className="text-xs text-zinc-300/70">→</span>
-                      <span className="text-xs font-medium text-zinc-100">Customer</span>
-                    </div>
-                  </div>
-
-                  {/* Right: specs */}
-                  <div className="md:col-span-5">
-                    <div className="grid gap-3">
-                      <div className="grid grid-cols-1 gap-3 sm:grid-cols-3 md:grid-cols-1">
-                        <div className="rounded-xl border border-white/10 bg-white/[0.03] px-4 py-3">
-                          <div className="text-[11px] uppercase tracking-wider text-zinc-300/70">
-                            SKU
-                          </div>
-                          <div className="mt-1 text-sm font-semibold tracking-tight text-zinc-100">
-                            Black Tee Only
-                          </div>
-                          <div className="mt-1 text-xs text-zinc-300/70">SKU-limited</div>
-                        </div>
-                        <div className="rounded-xl border border-white/10 bg-white/[0.03] px-4 py-3">
-                          <div className="text-[11px] uppercase tracking-wider text-zinc-300/70">
-                            Factory
-                          </div>
-                          <div className="mt-1 text-sm font-semibold tracking-tight text-zinc-100">
-                            Near NYC
-                          </div>
-                          <div className="mt-1 text-xs text-zinc-300/70">In-house ops</div>
-                        </div>
-                        <div className="rounded-xl border border-white/10 bg-white/[0.03] px-4 py-3">
-                          <div className="text-[11px] uppercase tracking-wider text-zinc-300/70">
-                            Delivery
-                          </div>
-                          <div className="mt-1 text-sm font-semibold tracking-tight text-zinc-100">
-                            NYC Metro Only
-                          </div>
-                          <div className="mt-1 text-xs text-zinc-300/70">City-local</div>
-                        </div>
-                      </div>
-
-                      <div className="rounded-2xl border border-white/10 bg-white/[0.03] p-4">
-                        <div className="text-xs text-zinc-300/70">
-                          System principle
-                        </div>
-                        <div className="mt-2 flex flex-wrap gap-2">
-                          <span className="inline-flex items-center rounded-full border border-white/10 bg-white/[0.03] px-3 py-1 text-xs text-zinc-200/80">
-                            One city
-                          </span>
-                          <span className="inline-flex items-center rounded-full border border-white/10 bg-white/[0.03] px-3 py-1 text-xs text-zinc-200/80">
-                            One factory
-                          </span>
-                          <span className="inline-flex items-center rounded-full border border-white/10 bg-white/[0.03] px-3 py-1 text-xs text-zinc-200/80">
-                            One standard
-                          </span>
-                        </div>
-
-                        {/* tiny note */}
-                        <div className="mt-3 text-xs text-zinc-300/70">
-                          Constrain scope to prove unit economics before expanding.
-                        </div>
-                      </div>
-                    </div>
-                  </div>
+                <div className="rounded-2xl border border-white/10 bg-white/[0.045] p-6 backdrop-blur-sm">
+                  <div className="text-sm font-semibold text-white">NY-area customers only</div>
+                  <p className="mt-2 text-sm text-white/70">
+                    Orders are limited to customers living near the factory.
+                    Speed and consistency first.
+                  </p>
                 </div>
 
-                {/* Bottom footnote */}
-                <div className="mt-6 text-xs text-zinc-300/60">
-                  * Pilot scope is intentionally constrained to prove speed, consistency,
-                  and operational control.
+                {/* Expansion */}
+                <div className="mt-6">
+                  <div className="flex flex-wrap items-center gap-3 text-sm text-white/70">
+                    <span className="text-white/85 font-medium">Next:</span>
+
+                    {["Los Angeles", "London", "Tokyo", "Paris", "Seoul"].map((city) => (
+                      <span
+                        key={city}
+                        className="rounded-full border border-white/10 bg-white/[0.035] px-3 py-1 text-xs text-white/70 backdrop-blur-md"
+                      >
+                        {city}
+                      </span>
+                    ))}
+
+                    <span className="text-white/50">→</span>
+                    <span className="text-white/60">every major city</span>
+                  </div>
                 </div>
               </div>
             </div>
@@ -740,15 +925,211 @@ export default function Home() {
         </div>
       </section>
 
-      {/* Fourth Page - Scrollable Content */}
-      <section className="min-h-screen flex items-center justify-center px-4 py-20 bg-white">
-        <div className="flex flex-col items-center gap-8 max-w-4xl">
-          <h2 className="text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-semibold text-black text-center">
-            Fourth Page
-          </h2>
-          <p className="text-lg text-gray-600 text-center max-w-2xl">
-            This is the fourth page that appears when you scroll down further.
-          </p>
+      {/* Page 5 — Use Cases */}
+      <section className="relative min-h-screen overflow-hidden bg-[#05060A] py-10">
+        {/* Background */}
+        <div className="pointer-events-none absolute inset-0 -z-10">
+          <div className="absolute inset-0 bg-gradient-to-b from-[#05060A] via-[#05060A] to-black" />
+
+          <div className="absolute left-1/2 top-[-180px] h-[640px] w-[980px] -translate-x-1/2 rounded-full bg-sky-300/10 blur-3xl opacity-70" />
+          <div className="absolute right-[-240px] bottom-[-120px] h-[520px] w-[520px] rounded-full bg-cyan-300/10 blur-3xl opacity-60 hidden md:block" />
+
+          <div
+            className="absolute inset-0 opacity-[0.04]"
+            style={{
+              backgroundImage:
+                "linear-gradient(to right, rgba(255,255,255,0.35) 1px, transparent 1px), linear-gradient(to bottom, rgba(255,255,255,0.35) 1px, transparent 1px)",
+              backgroundSize: "80px 80px",
+            }}
+          />
+          <div className="absolute inset-x-0 top-0 h-px bg-white/10" />
+          <div className="absolute inset-0 bg-gradient-to-b from-transparent via-black/25 to-black/70" />
+        </div>
+
+        <div className="mx-auto max-w-6xl px-6">
+          {/* Header */}
+          <div className="max-w-3xl">
+            <span className="inline-flex items-center gap-2 rounded-full border border-white/10 bg-white/[0.035] px-3 py-1 text-xs text-white/70 backdrop-blur-md">
+              <span className="h-1.5 w-1.5 rounded-full bg-sky-300/80" />
+              USE CASES
+            </span>
+
+            <h2 className="mt-5 text-4xl font-semibold tracking-tight text-white md:text-5xl md:leading-tight">
+              Plug in. Route the right orders.
+              <span className="md:hidden"> </span>
+              <br className="hidden md:block" />
+              Upgrade the experience.
+            </h2>
+
+            <p className="mt-4 text-sm leading-relaxed text-white/70 md:text-base">
+              Godship runs alongside your existing setup. We only take the slice that benefits most —
+              starting with <span className="text-white/85 font-medium">black tees</span> for{" "}
+              <span className="text-white/85 font-medium">NY-area customers</span>.
+            </p>
+          </div>
+
+          {/* How it works (compact) */}
+          <div className="mt-10 ">
+            <div className="flex flex-wrap items-center justify-between gap-3">
+              <div className="text-xl font-semibold text-white md:text-xl">How it works</div>
+            </div>
+
+            <div className="mt-6 grid gap-4 md:grid-cols-3">
+              {/* Step 1 */}
+              <div className="group relative overflow-hidden rounded-2xl border border-white/10 bg-white/[0.045] p-7 backdrop-blur-sm transition hover:border-white/20 hover:bg-white/[0.055]">
+                <div className="relative">
+                <div className="flex items-center justify-between">
+                  <div className="text-xs text-white/55">Step 01</div>
+                  <span className="text-xs text-white/55">Connect</span>
+                </div>
+
+                <div className="mt-3 flex items-center gap-3">
+                  {/* Icon */}
+                  <div className="flex h-10 w-10 items-center justify-center rounded-xl border border-white/10 bg-white/[0.04]">
+                    <svg viewBox="0 0 24 24" className="h-6 w-6 text-white/80" fill="none">
+                      <path
+                        d="M8 12a4 4 0 0 1 4-4h3a4 4 0 1 1 0 8h-3"
+                        stroke="currentColor"
+                        strokeWidth="1.5"
+                      />
+                      <path
+                        d="M16 12a4 4 0 0 1-4 4H9a4 4 0 1 1 0-8h3"
+                        stroke="currentColor"
+                        strokeWidth="1.5"
+                        opacity="0.6"
+                      />
+                    </svg>
+                  </div>
+
+                  <div className="text-sm font-semibold text-white">
+                    Keep your current POD + inventory
+                  </div>
+                </div>
+
+                <p className="mt-3 text-sm leading-relaxed text-white/70">
+                  No migration. No switching costs. Godship runs in parallel with your existing workflow.
+                </p>
+                </div>
+              </div>
+
+              {/* Step 2 */}
+              <div className="group relative overflow-hidden rounded-2xl border border-white/10 bg-white/[0.045] p-7 backdrop-blur-sm transition hover:border-white/20 hover:bg-white/[0.055]">
+                <div className="relative">
+                <div className="flex items-center justify-between">
+                  <div className="text-xs text-white/55">Step 02</div>
+                  <span className="text-xs text-white/55">Route</span>
+                </div>
+
+                <div className="mt-3 flex items-center gap-3">
+                  {/* Icon */}
+                  <div className="flex h-10 w-10 items-center justify-center rounded-xl border border-white/10 bg-white/[0.04]">
+                    <svg viewBox="0 0 24 24" className="h-6 w-6 text-white/80" fill="none">
+                      <path
+                        d="M4 6h16M4 12h10M4 18h6"
+                        stroke="currentColor"
+                        strokeWidth="1.5"
+                      />
+                      <circle
+                        cx="18"
+                        cy="12"
+                        r="3"
+                        stroke="currentColor"
+                        strokeWidth="1.5"
+                        opacity="0.6"
+                      />
+                    </svg>
+                  </div>
+
+                  <div className="text-sm font-semibold text-white">
+                    Auto-route: NY-area + black tee orders
+                  </div>
+                </div>
+
+                <p className="mt-3 text-sm leading-relaxed text-white/70">
+                  Only the targeted slice is sent to Godship — everything else stays with your current setup.
+                </p>
+                </div>
+              </div>
+
+              {/* Step 3 */}
+              <div className="group relative overflow-hidden rounded-2xl border border-white/10 bg-white/[0.045] p-7 backdrop-blur-sm transition hover:border-white/20 hover:bg-white/[0.055]">
+                <div className="relative">
+                <div className="flex items-center justify-between">
+                  <div className="text-xs text-white/55">Step 03</div>
+                  <span className="text-xs text-white/55">Fulfill</span>
+                </div>
+
+                <div className="mt-3 flex items-center gap-3">
+                  {/* Icon */}
+                  <div className="flex h-10 w-10 items-center justify-center rounded-xl border border-white/10 bg-white/[0.04]">
+                    <svg viewBox="0 0 24 24" className="h-6 w-6 text-white/80" fill="none">
+                      <path
+                        d="M3 20V9l6 3V9l6 3V9l6 3v8H3Z"
+                        stroke="currentColor"
+                        strokeWidth="1.5"
+                      />
+                      <path
+                        d="M7 20v-4m4 4v-4m4 4v-4"
+                        stroke="currentColor"
+                        strokeWidth="1.5"
+                        opacity="0.6"
+                      />
+                    </svg>
+                  </div>
+
+                  <div className="text-sm font-semibold text-white">
+                    We print, pack, and ship
+                  </div>
+                </div>
+
+                <p className="mt-3 text-sm leading-relaxed text-white/70">
+                  Controlled production and a consistent unboxing — faster delivery and fewer surprises.
+                </p>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <div className="mt-12 grid gap-4 md:grid-cols-3">
+            {/* 1) POD users — SKY */}
+            <UseCaseCard
+              accent="125 211 252"
+              eyebrow="For brands already using POD"
+              title="Upgrade your best customers first."
+              body="Keep Printful/Printify/Gelato for most orders. Auto-route NY black-tee orders to Godship to deliver a premium experience where it matters most."
+              outcomes={["Faster delivery (NY)", "Consistent quality", "Better unboxing"]}
+            />
+
+            {/* 2) Inventory — CYAN */}
+            <UseCaseCard
+              accent="103 232 249"
+              eyebrow="For brands running inventory"
+              title="Add on-demand without losing brand control."
+              body="Go hybrid: keep inventory for core SKUs, and use Godship on-demand for NY customers — so you reduce risk while improving the experience."
+              outcomes={["Lower inventory risk", "On-demand option", "Brand control stays intact"]}
+            />
+
+            {/* 3) Cross-border — INDIGO */}
+            <UseCaseCard
+              accent="165 180 252"
+              eyebrow="For cross-border apparel brands"
+              title="Sell globally, fulfill locally."
+              body="Avoid overseas shipping for every order. Fulfill locally for NY-area customers to dramatically improve speed, quality, and brand experience for international buyers."
+              outcomes={["No overseas shipping", "Faster to customers (NY)", "Consistent brand experience"]}
+            />
+          </div>
+
+          {/* Go to top button */}
+          <div className="mt-12 flex justify-center">
+            <button
+              onClick={() => {
+                window.scrollTo({ top: 0, behavior: 'smooth' });
+              }}
+              className="inline-flex items-center gap-2 rounded-full border border-white/20 bg-white/10 backdrop-blur-sm px-6 py-3 text-sm font-medium text-white transition hover:bg-white/20 hover:border-white/30"
+            >
+              Go to the top
+            </button>
+          </div>
         </div>
       </section>
     </div>
