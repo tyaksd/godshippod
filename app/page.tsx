@@ -478,7 +478,7 @@ export default function Home() {
 
             <p className="mt-4 text-base leading-relaxed text-zinc-300/80 md:text-lg">
             5–21 day delivery. Unpredictable quality. Zero brand experience.
-              <br className="hidden md:block" />
+              <br />
               And people still call this "POD".
             </p>
           </div>
@@ -580,11 +580,11 @@ export default function Home() {
           </div>
 
           {/* Additional Problems */}
-          <div className=" pt-12">
+          <div className=" pt-8">
             <p className="text-sm text-zinc-400/60 mb-5 text-center">
               And more...
             </p>
-            <div className="grid grid-cols-1 md:grid-cols-3 gap-4 text-sm text-zinc-300/70">
+            <div className="grid grid-cols-1 md:grid-cols-4 gap-4 text-sm text-zinc-300/70">
               <div className="flex items-start gap-2">
                 <span className="text-zinc-500 mt-0.5">•</span>
                 <span>Outdated systems and UX</span>
@@ -596,6 +596,10 @@ export default function Home() {
               <div className="flex items-start gap-2">
                 <span className="text-zinc-500 mt-0.5">•</span>
                 <span>Lack of process transparency</span>
+              </div>
+              <div className="flex items-start gap-2">
+                <span className="text-zinc-500 mt-0.5">•</span>
+                <span>Terrible customer support</span>
               </div>
             </div>
           </div>
