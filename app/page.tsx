@@ -67,7 +67,7 @@ function FixCard({
         {/* Icon + title */}
         <div className="flex items-start gap-3">
           <div
-            className="flex h-11 w-11 items-center justify-center rounded-xl border"
+            className="flex h-11 w-11 flex-shrink-0 items-center justify-center rounded-xl border aspect-square"
             style={{
               borderColor: "rgb(var(--accent) / 0.22)",
               backgroundColor: "rgb(var(--accent) / 0.10)",
@@ -985,7 +985,7 @@ export default function Home() {
 
                 <div className="mt-3 flex items-center gap-3">
                   {/* Icon */}
-                  <div className="flex h-10 w-10 items-center justify-center rounded-xl border border-white/10 bg-white/[0.04]">
+                  <div className="flex h-10 w-10 flex-shrink-0 items-center justify-center rounded-xl border border-white/10 bg-white/[0.04] aspect-square">
                     <svg viewBox="0 0 24 24" className="h-6 w-6 text-white/80" fill="none">
                       <path
                         d="M8 12a4 4 0 0 1 4-4h3a4 4 0 1 1 0 8h-3"
@@ -1022,7 +1022,7 @@ export default function Home() {
 
                 <div className="mt-3 flex items-center gap-3">
                   {/* Icon */}
-                  <div className="flex h-10 w-10 items-center justify-center rounded-xl border border-white/10 bg-white/[0.04]">
+                  <div className="flex h-10 w-10 flex-shrink-0 items-center justify-center rounded-xl border border-white/10 bg-white/[0.04] aspect-square">
                     <svg viewBox="0 0 24 24" className="h-6 w-6 text-white/80" fill="none">
                       <path
                         d="M4 6h16M4 12h10M4 18h6"
@@ -1061,7 +1061,7 @@ export default function Home() {
 
                 <div className="mt-3 flex items-center gap-3">
                   {/* Icon */}
-                  <div className="flex h-10 w-10 items-center justify-center rounded-xl border border-white/10 bg-white/[0.04]">
+                  <div className="flex h-10 w-10 flex-shrink-0 items-center justify-center rounded-xl border border-white/10 bg-white/[0.04] aspect-square">
                     <svg viewBox="0 0 24 24" className="h-6 w-6 text-white/80" fill="none">
                       <path
                         d="M3 20V9l6 3V9l6 3V9l6 3v8H3Z"
