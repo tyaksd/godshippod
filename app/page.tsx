@@ -836,45 +836,50 @@ export default function Home() {
                         strokeWidth="1"
                       />
                     ))}
+                    {/* Central lines: Equator (horizontal) and Prime Meridian (vertical) */}
+                    <line
+                      x1="40"
+                      y1="260"
+                      x2="480"
+                      y2="260"
+                      stroke="rgba(255,255,255,0.08)"
+                      strokeWidth="1"
+                    />
+                    <line
+                      x1="260"
+                      y1="40"
+                      x2="260"
+                      y2="480"
+                      stroke="rgba(255,255,255,0.08)"
+                      strokeWidth="1"
+                    />
                     {/* Continents (abstract, subtle) */}
                     {/* Americas-ish */}
                     <path
-                      d="M210 170c26-24 60-34 92-24 24 8 42 26 46 46 3 14-3 28-16 36-14 8-30 10-44 14-18 4-26 12-30 28-5 20-20 38-44 44-22 5-40-10-36-30 4-20 16-34 26-48 12-16 12-32-2-46-10-10-14-22-12-36 1-10 8-20 20-30z"
+                      d="M190 140
+    C220 120 270 118 305 140
+    C335 158 350 182 348 206
+    C346 228 326 242 300 252
+    C278 260 262 266 254 284
+    C244 306 246 332 224 348
+    C202 364 174 354 168 326
+    C164 306 176 286 188 266
+    C202 244 210 226 204 206
+    C196 182 166 176 160 152
+    C154 130 168 116 190 140
+    Z
+
+    
+
+   "
                       fill="url(#continentFade)"
                       opacity="0.85"
                     />
                    
                     {/* Vignette overlay */}
                     <rect x="0" y="0" width="520" height="520" fill="url(#globeVignette)" opacity="0.9" />
-                    {/* City dots */}
-                    {[
-                      { name: "New York", x: 330, y: 230, active: true },
-                      { name: "Los Angeles", x: 250, y: 255, active: false },
-                      { name: "London", x: 355, y: 215, active: false },
-                      { name: "Tokyo", x: 430, y: 250, active: false },
-                    ].map((c) => (
-                      <g key={c.name}>
-                        {c.active ? (
-                          <>
-                            {/* glow */}
-                            <circle cx={c.x} cy={c.y} r="22" fill="url(#nyGlow)" />
-                            {/* core dot */}
-                            <circle cx={c.x} cy={c.y} r="5" fill="rgba(125,211,252,0.95)" />
-                          </>
-                        ) : (
-                          <>
-                            <circle cx={c.x} cy={c.y} r="3.5" fill="rgba(255,255,255,0.22)" />
-                          </>
-                        )}
-                      </g>
-                    ))}
-                    {/* subtle terminator line (optional, adds depth) */}
-                    <path
-                      d="M85 360c70-60 150-95 240-95 70 0 130 18 180 50"
-                      stroke="rgba(255,255,255,0.06)"
-                      strokeWidth="2"
-                      opacity="0.7"
-                    />
+                   
+                   
                   </g>
                 </svg>
 
