@@ -1097,7 +1097,7 @@ export default function Home() {
               eyebrow="For brands already using POD"
               title="Upgrade your best customers first."
               body="Keep Printful/Printify/Gelato for most orders. Auto-route NY black-tee orders to Godship to deliver a premium experience where it matters most."
-              outcomes={["Faster delivery (NY)", "Consistent quality", "Better unboxing"]}
+              outcomes={["Faster delivery (NY)", "Consistent quality", "Better brand experience"]}
             />
 
             {/* 2) Inventory — CYAN */}
