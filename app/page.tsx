@@ -2,6 +2,7 @@
 
 import { useState, useEffect } from 'react';
 import Image from 'next/image';
+import Link from 'next/link';
 import { supabase } from '@/lib/supabase';
 import { Tag, TrendingUp, Boxes, Layers, Factory, MapPin } from 'lucide-react';
 
@@ -422,9 +423,9 @@ export default function Home() {
 
           {/* Description */}
           <p className="text-sm sm:text-base text-white/90 text-center max-w-2xl">
-            Manufactured in our factories near major cities—built for local delivery by ground.
+            Manufactured in our factories near major cities.
             <br />
-            On-demand production infrastructure built for consistent quality and fast delivery.
+            Global on-demand production infrastructure built for consistent quality and fast delivery.
           </p>
 
           {/* Email form */}
@@ -461,6 +462,18 @@ export default function Home() {
               </p>
             </div>
           </form>
+          
+          {/* Contact link for apparel brands */}
+          <p className="text-sm text-white/80 text-center -mt-9">
+            Are you an apparel brand?{' '}
+            <Link 
+              href="/contact" 
+              className="underline hover:text-white transition-colors"
+            >
+              Contact us here
+            </Link>
+       
+          </p>
         </div>
       </section>
 
@@ -785,7 +798,7 @@ export default function Home() {
             </span>
 
             <h2 className="mt-5 text-4xl font-semibold tracking-tight text-white md:text-6xl">
-              We start in NY.
+              We'll start in NY.
             </h2>
           </div>
 

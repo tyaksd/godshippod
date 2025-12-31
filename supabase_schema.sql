@@ -25,3 +25,27 @@ CREATE POLICY "Allow public insert" ON "waitlist-email"
 --   TO authenticated
 --   USING (true);
 
+-- Contact submissionsテーブルを作成
+CREATE TABLE IF NOT EXISTS "contact-submissions" (
+  id UUID DEFAULT gen_random_uuid() PRIMARY KEY,
+  name TEXT NOT NULL,
+  email TEXT NOT NULL,
+  company TEXT NOT NULL,
+  platform TEXT NOT NULL,
+  message TEXT,
+  created_at TIMESTAMP WITH TIME ZONE DEFAULT NOW()
+);
+
+-- インデックスを追加
+CREATE INDEX IF NOT EXISTS idx_contact_created_at ON "contact-submissions"(created_at);
+CREATE INDEX IF NOT EXISTS idx_contact_email ON "contact-submissions"(email);
+
+-- Row Level Security (RLS) を有効化
+ALTER TABLE "contact-submissions" ENABLE ROW LEVEL SECURITY;
+
+-- 全ユーザーがINSERTできるポリシーを作成
+CREATE POLICY "Allow public insert" ON "contact-submissions"
+  FOR INSERT
+  TO public
+  WITH CHECK (true);
+
