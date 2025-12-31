@@ -30,9 +30,10 @@ CREATE TABLE IF NOT EXISTS "contact-submissions" (
   id UUID DEFAULT gen_random_uuid() PRIMARY KEY,
   name TEXT NOT NULL,
   email TEXT NOT NULL,
-  company TEXT NOT NULL,
+  brand_store_link TEXT,
   platform TEXT NOT NULL,
   message TEXT,
+  country TEXT,
   created_at TIMESTAMP WITH TIME ZONE DEFAULT NOW()
 );
 

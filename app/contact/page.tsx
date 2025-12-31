@@ -1,7 +1,6 @@
 'use client';
 
 import { useState } from 'react';
-import Image from 'next/image';
 import Link from 'next/link';
 import { supabase } from '@/lib/supabase';
 
@@ -9,11 +8,24 @@ export default function Contact() {
   const [formData, setFormData] = useState({
     name: '',
     email: '',
-    company: '',
+    brand_store_link: '',
     platform: '',
   });
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [message, setMessage] = useState<{ type: 'success' | 'error'; text: string } | null>(null);
+
+  // IPアドレスから国を取得する関数
+  const getCountryFromIP = async (): Promise<string | null> => {
+    try {
+      // 無料のIP Geolocation APIを使用（ipapi.co - 1日1000リクエストまで無料）
+      const response = await fetch('https://ipapi.co/json/');
+      const data = await response.json();
+      return data.country_name || data.country_code || null;
+    } catch (error) {
+      console.error('Error fetching country:', error);
+      return null;
+    }
+  };
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLSelectElement>) => {
     setFormData({
@@ -28,13 +40,17 @@ export default function Contact() {
     setMessage(null);
 
     try {
+      // 国を取得（エラーが発生しても処理を続行）
+      const country = await getCountryFromIP();
+
       const { error } = await supabase
         .from('contact-submissions')
         .insert([{ 
           name: formData.name,
           email: formData.email,
-          company: formData.company,
+          brand_store_link: formData.brand_store_link,
           platform: formData.platform,
+          country: country || null,
           created_at: new Date().toISOString() 
         }]);
 
@@ -46,7 +62,7 @@ export default function Contact() {
       setFormData({
         name: '',
         email: '',
-        company: '',
+        brand_store_link: '',
         platform: '',
       });
     } catch (error: any) {
@@ -62,25 +78,10 @@ export default function Contact() {
 
   return (
     <div className="bg-white min-h-screen">
-      {/* Header with logo */}
-      <div className="relative bg-[#05060A]">
-        <div className="max-w-6xl mx-auto px-6 py-6 flex items-center justify-between">
-          <Link href="/">
-            <Image
-              src="/godship-logo.png"
-              alt="Godship"
-              width={200}
-              height={200}
-              className="object-contain w-[200px] h-[70px]"
-            />
-          </Link>
-        </div>
-      </div>
-
       {/* Main content */}
-      <section className="relative min-h-[calc(100vh-200px)] bg-[#05060A] py-12 px-4">
+      <section className="relative min-h-[calc(100vh-200px)] bg-[#05060A] py-6 px-4">
         <div className="max-w-2xl mx-auto">
-          <div className="mb-8">
+          <div className="mb-6">
             <h1 className="text-4xl md:text-5xl font-semibold tracking-tight text-white mb-4">
               Contact Us
             </h1>
@@ -94,7 +95,7 @@ export default function Contact() {
           <form onSubmit={handleSubmit} className="space-y-6">
             <div>
               <label htmlFor="name" className="block text-sm font-medium text-white/80 mb-2">
-                Name *
+               Your Name *
               </label>
               <input
                 type="text"
@@ -127,16 +128,15 @@ export default function Contact() {
             </div>
 
             <div>
-              <label htmlFor="company" className="block text-sm font-medium text-white/80 mb-2">
-                Brand store link *
+              <label htmlFor="brand_store_link" className="block text-sm font-medium text-white/80 mb-2">
+                Brand store link
               </label>
               <input
-                type="url"
-                id="company"
-                name="company"
-                value={formData.company}
+                type="text"
+                id="brand_store_link"
+                name="brand_store_link"
+                value={formData.brand_store_link}
                 onChange={handleChange}
-                required
                 disabled={isSubmitting}
                 className="w-full px-4 py-3 bg-white/10 backdrop-blur-sm border border-white/20 rounded-lg text-white placeholder:text-white/50 focus:outline-none focus:ring-1 focus:ring-white/50 disabled:opacity-50 disabled:cursor-not-allowed"
                 placeholder="https://yourstore.com"
@@ -182,7 +182,7 @@ export default function Contact() {
           </form>
 
           {/* Back to home link */}
-          <div className="mt-8 text-center">
+          <div className="mt-10 text-center">
             <Link
               href="/"
               className="text-sm text-white/70 hover:text-white transition-colors underline"
