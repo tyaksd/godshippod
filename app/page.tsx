@@ -478,7 +478,7 @@ export default function Home() {
       </section>
 
       {/* Second Page - POD Challenges */}
-      <section className="relative overflow-x-hidden overflow-y-visible bg-[#070A12] text-zinc-100 min-h-screen">
+      <section className="relative overflow-x-hidden overflow-y-visible bg-[#070A12] text-zinc-100">
         {/* subtle background */}
         <div className="pointer-events-none absolute inset-0">
           {/* top glow */}
@@ -496,7 +496,7 @@ export default function Home() {
           <div className="absolute inset-0 bg-gradient-to-b from-transparent via-[#070A12]/40 to-[#070A12]" />
         </div>
 
-        <div className="relative mx-auto max-w-6xl px-6 pt-12 pb-15 md:pt-16 md:pb-20">
+        <div className="relative mx-auto max-w-6xl px-6 pt-12 pb-8 md:pt-16 md:pb-22">
           {/* Header */}
           <div className="max-w-3xl">
             <p className="inline-flex items-center gap-2 rounded-full border border-white/14 bg-white/[0.05] px-3 py-1 text-xs text-zinc-200/80">
@@ -599,39 +599,14 @@ export default function Home() {
                 </div>
 
                 <h3 className="mt-3 text-xl font-semibold tracking-tight">
-                  Not your brand
+                Merchant nightmare
                 </h3>
 
                 <p className="mt-3 text-sm leading-relaxed text-zinc-300/80">
-                Your product is treated like just another mass-produced item.
+                Outdated systems and UX. Lack of process transparency. Terrible support — and returns/remakes/exceptions are a mess.
                   <br />
-                  It breaks the <span className="text-zinc-100 font-medium">brand experience</span>.
+              
                 </p>
-              </div>
-            </div>
-          </div>
-
-          {/* Additional Problems */}
-          <div className=" pt-8">
-            <p className="text-sm text-zinc-400/60 mb-5 text-center">
-              And more...
-            </p>
-            <div className="grid grid-cols-1 md:grid-cols-4 gap-4 text-sm text-zinc-300/70">
-              <div className="flex items-start gap-2">
-                <span className="text-zinc-500 mt-0.5">•</span>
-                <span>Outdated systems and UX</span>
-              </div>
-              <div className="flex items-start gap-2">
-                <span className="text-zinc-500 mt-0.5">•</span>
-                <span>Complex returns, remakes, and exception handling</span>
-              </div>
-              <div className="flex items-start gap-2">
-                <span className="text-zinc-500 mt-0.5">•</span>
-                <span>Lack of process transparency</span>
-              </div>
-              <div className="flex items-start gap-2">
-                <span className="text-zinc-500 mt-0.5">•</span>
-                <span>Terrible customer support</span>
               </div>
             </div>
           </div>
