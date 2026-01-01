@@ -603,9 +603,7 @@ export default function Home() {
                 </h3>
 
                 <p className="mt-3 text-sm leading-relaxed text-zinc-300/80">
-                Outdated systems and UX. Lack of process transparency. Terrible support — and returns/remakes/exceptions are a mess.
-                  <br />
-              
+                Outdated systems. Lack of process transparency. Terrible support — and returns/remakes/exceptions are a mess.
                 </p>
               </div>
             </div>
