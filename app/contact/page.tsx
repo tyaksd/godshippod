@@ -10,6 +10,7 @@ export default function Contact() {
     email: '',
     brand_store_link: '',
     platform: '',
+    ships_black_tees_ny: '',
   });
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [message, setMessage] = useState<{ type: 'success' | 'error'; text: string } | null>(null);
@@ -34,6 +35,13 @@ export default function Contact() {
     });
   };
 
+  const handleRadioChange = (value: string) => {
+    setFormData({
+      ...formData,
+      ships_black_tees_ny: value,
+    });
+  };
+
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     setIsSubmitting(true);
@@ -50,6 +58,7 @@ export default function Contact() {
           email: formData.email,
           brand_store_link: formData.brand_store_link,
           platform: formData.platform,
+          ships_black_tees_ny: formData.ships_black_tees_ny || null,
           country: country || null,
           created_at: new Date().toISOString() 
         }]);
@@ -64,6 +73,7 @@ export default function Contact() {
         email: '',
         brand_store_link: '',
         platform: '',
+        ships_black_tees_ny: '',
       });
     } catch (error: any) {
       console.error('Error submitting contact form:', error);
@@ -158,6 +168,38 @@ export default function Contact() {
                 className="w-full px-4 py-3 bg-white/10 backdrop-blur-sm border border-white/20 rounded-lg text-white placeholder:text-white/50 focus:outline-none focus:ring-1 focus:ring-white/50 disabled:opacity-50 disabled:cursor-not-allowed"
                 placeholder="e.g., Shopify, Wix, Custom, etc."
               />
+            </div>
+
+            <div>
+              <label className="block text-sm font-medium text-white/80 mb-3">
+                Do you currently ship black tees to NY-area customers?
+              </label>
+              <div className="flex gap-6">
+                <label className="flex items-center gap-2 cursor-pointer">
+                  <input
+                    type="radio"
+                    name="ships_black_tees_ny"
+                    value="Yes"
+                    checked={formData.ships_black_tees_ny === 'Yes'}
+                    onChange={() => handleRadioChange('Yes')}
+                    disabled={isSubmitting}
+                    className="w-4 h-4 text-white bg-white/10 border-white/20 focus:ring-white/50 disabled:opacity-50 disabled:cursor-not-allowed"
+                  />
+                  <span className="text-white/80">Yes</span>
+                </label>
+                <label className="flex items-center gap-2 cursor-pointer">
+                  <input
+                    type="radio"
+                    name="ships_black_tees_ny"
+                    value="No"
+                    checked={formData.ships_black_tees_ny === 'No'}
+                    onChange={() => handleRadioChange('No')}
+                    disabled={isSubmitting}
+                    className="w-4 h-4 text-white bg-white/10 border-white/20 focus:ring-white/50 disabled:opacity-50 disabled:cursor-not-allowed"
+                  />
+                  <span className="text-white/80">No</span>
+                </label>
+              </div>
             </div>
 
             {message && (

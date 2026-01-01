@@ -32,6 +32,7 @@ CREATE TABLE IF NOT EXISTS "contact-submissions" (
   email TEXT NOT NULL,
   brand_store_link TEXT,
   platform TEXT NOT NULL,
+  ships_black_tees_ny TEXT,
   message TEXT,
   country TEXT,
   created_at TIMESTAMP WITH TIME ZONE DEFAULT NOW()
