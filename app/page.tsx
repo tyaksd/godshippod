@@ -379,9 +379,7 @@ export default function Home() {
             <span className="sm:hidden">
               Get high-quality tees{' '}
               <br />
-              to your customers{' '}
-              <br />
-              in {' '} 
+              to your {' '} 
               <span className="relative inline-block h-[1.2em] w-[7ch] text-center">
                 <span
                   className={`inline-block w-full text-white transition-opacity duration-300 ${
@@ -395,14 +393,15 @@ export default function Home() {
                   {currentCity}
                 </span>
               </span>{' '}
+              customers{' '}
               <br />
-              within 3 days
+              in 3 days, without holding inventory
             </span>
             {/* PC用 */}
             <span className="hidden sm:inline">
               Get high-quality tees to{' '}
               <br />
-              your customers in{' '}
+              your {' '}
               <span className="relative inline-block h-[1.2em] w-[7ch] text-center">
                 <span
                   className={`inline-block w-full text-white transition-opacity duration-300 ${
@@ -416,8 +415,9 @@ export default function Home() {
                   {currentCity}
                 </span>
               </span>{' '}
+              customers{' '}
               <br />
-              within 3 days
+              in 3 days, without holding inventory
             </span>
           </h1>
 
