@@ -380,7 +380,7 @@ export default function Home() {
               Get high-quality tees{' '}
               <br />
               to your {' '} 
-              <span className="relative inline-block h-[1.2em] w-[7ch] text-center">
+              <span className="relative inline-block h-[1.0em] w-[7ch] text-center">
                 <span
                   className={`inline-block w-full text-white transition-opacity duration-300 ${
                     isVisible ? 'opacity-100' : 'opacity-0'
@@ -393,8 +393,7 @@ export default function Home() {
                   {currentCity}
                 </span>
               </span>{' '}
-              customers{' '}
-              <br />
+              customers
               in 3 days, without holding inventory
             </span>
             {/* PC用 */}
