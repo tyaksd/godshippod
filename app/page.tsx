@@ -907,7 +907,7 @@ export default function Home() {
                 </div>
 
                 <div className="rounded-2xl border border-white/10 bg-white/[0.045] p-6 backdrop-blur-sm">
-                  <div className="text-sm font-semibold text-white">NY-area customers only</div>
+                  <div className="text-sm font-semibold text-white">NY and surrounding states only</div>
                   <p className="mt-2 text-sm text-white/70">
                     Orders are limited to customers living near the factory.
                     Speed and consistency first.
