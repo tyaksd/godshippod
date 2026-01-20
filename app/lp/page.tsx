@@ -705,7 +705,7 @@ export default function Home() {
               }
               title="Best UI"
               subtitle="Frictionless modern experience"
-              tags={["UX", "MODERN"]}
+              tags={["UX"]}
               body="We're modernizing everything from ordering and returns to customer support — creating a frictionless, contemporary experience."
               chips={["SEAMLESS", "MODERN"]}
             />
