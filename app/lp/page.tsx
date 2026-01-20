@@ -612,42 +612,25 @@ export default function Home() {
             </h2>
 
             <p className="mt-4 text-sm leading-relaxed text-white/70 md:text-base">
-            We’re a tech company replacing legacy POD chaos with a controlled system — tight scope, owned ops, local delivery, and brand-linked AI that predicts demand.
+            We’re a tech company replacing legacy POD chaos with a controlled system.
             </p>
           </div>
 
           {/* 4 Pillars */}
           <div className="mt-10 grid gap-4 md:grid-cols-2">
             <FixCard
-              accent="125 211 252" // Sky: throughput / speed
+              accent="251 191 36" // Amber/Gold: quality / premium
               icon={
                 <svg viewBox="0 0 24 24" className="h-5 w-5" fill="none" aria-hidden="true">
-                  <path d="M6 7.5h12M7.5 11.5h9M9 15.5h6" stroke="currentColor" strokeWidth="1.6" strokeLinecap="round" opacity="0.9" />
-                  <path d="M4.5 6.5A2 2 0 0 1 6.5 4.5h11A2 2 0 0 1 19.5 6.5v11a2 2 0 0 1-2 2h-11a2 2 0 0 1-2-2v-11Z" stroke="currentColor" strokeWidth="1.4" opacity="0.55" />
+                  <path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z" stroke="currentColor" strokeWidth="1.6" opacity="0.9" />
+                  <path d="M12 6v6m0 0v6" stroke="currentColor" strokeWidth="1.6" opacity="0.55" strokeLinecap="round" />
                 </svg>
               }
-              title="SKU-limited"
-              subtitle="Repeatability by design"
-              tags={["THROUGHPUT", "CONSISTENCY"]}
-              body="Start narrow to maximize throughput, consistency, and quality control."
-              chips={["MEASURED", "STANDARDIZED"]}
-            />
-
-            <FixCard
-              accent="103 232 249" // Cyan: control / ops
-              icon={
-                <svg viewBox="0 0 24 24" className="h-5 w-5" fill="none" aria-hidden="true">
-                  <path d="M4.5 19.5v-8l6 3.5V11l6 3.5V11l3 1.8v6.7H4.5Z" stroke="currentColor" strokeWidth="1.6" opacity="0.9" />
-                  <path d="M8 19.5v-4m4 4v-4m4 4v-4" stroke="currentColor" strokeWidth="1.6" opacity="0.55" />
-                  <path d="M6.5 9V7.2A2.2 2.2 0 0 1 8.7 5h2" stroke="currentColor" strokeWidth="1.4" opacity="0.55" />
-                </svg>
-              }
-              title="Autonomous factory"
-              subtitle="Controlled by our proprietary OS"
-              tags={["CONTROL",　"SPEED", "TRACEABLE"]}
-              body="Every step is software-defined.
-Quality is enforced by the system, not by people. Equipped with an AI camera."
-              chips={["ACCOUNTABLE", "STANDARDIZED", "< 24-HOUR TARGET"]}
+              title="High quality"
+              subtitle="World's highest quality"
+              tags={["QUALITY", "JAPAN"]}
+              body="We use printers from world-class Japanese companies. Our founder is Japanese, enabling direct negotiation."
+              chips={["PREMIUM", ]}
             />
 
             <FixCard
@@ -661,8 +644,39 @@ Quality is enforced by the system, not by people. Equipped with an AI camera."
               title="City-local delivery"
               subtitle="Metro-only for reliability"
               tags={["SPEED", "RELIABILITY"]}
-              body="Factories near major metros ship exclusively to local customers — faster and more predictable."
+              body="Facilities near major metros ship exclusively to local customers — faster and more predictable."
               chips={["2-DAY TARGET"]}
+            />
+
+            <FixCard
+              accent="103 232 249" // Cyan: control / ops
+              icon={
+                <svg viewBox="0 0 24 24" className="h-5 w-5" fill="none" aria-hidden="true">
+                  <path d="M4.5 19.5v-8l6 3.5V11l6 3.5V11l3 1.8v6.7H4.5Z" stroke="currentColor" strokeWidth="1.6" opacity="0.9" />
+                  <path d="M8 19.5v-4m4 4v-4m4 4v-4" stroke="currentColor" strokeWidth="1.6" opacity="0.55" />
+                  <path d="M6.5 9V7.2A2.2 2.2 0 0 1 8.7 5h2" stroke="currentColor" strokeWidth="1.4" opacity="0.55" />
+                </svg>
+              }
+              title="Autonomous facility"
+              subtitle="Controlled by our proprietary OS"
+              tags={["CONTROL",　"SPEED", "TRACEABLE"]}
+              body="Every step is software-defined. We're developing a fully automated, high-tech facility that eliminates human intervention."
+              chips={["ACCOUNTABLE", "STANDARDIZED", "< 24-HOUR TARGET"]}
+            />
+
+            <FixCard
+              accent="125 211 252" // Sky: throughput / speed
+              icon={
+                <svg viewBox="0 0 24 24" className="h-5 w-5" fill="none" aria-hidden="true">
+                  <path d="M6 7.5h12M7.5 11.5h9M9 15.5h6" stroke="currentColor" strokeWidth="1.6" strokeLinecap="round" opacity="0.9" />
+                  <path d="M4.5 6.5A2 2 0 0 1 6.5 4.5h11A2 2 0 0 1 19.5 6.5v11a2 2 0 0 1-2 2h-11a2 2 0 0 1-2-2v-11Z" stroke="currentColor" strokeWidth="1.4" opacity="0.55" />
+                </svg>
+              }
+              title="SKU-limited"
+              subtitle="Repeatability by design"
+              tags={["THROUGHPUT", "CONSISTENCY"]}
+              body="We start narrow to maximize throughput, consistency, and quality control."
+              chips={["MEASURED", "STANDARDIZED"]}
             />
 
             <FixCard
@@ -678,6 +692,22 @@ Quality is enforced by the system, not by people. Equipped with an AI camera."
               tags={["INTELLIGENCE", "FORECASTING"]}
               body="Connect with your brand to understand context (drops, audience, creatives) and predict demand — so production stays fast without losing control."
               chips={["DEMAND FORECASTING", "CONTEXT-AWARE"]}
+            />
+
+            <FixCard
+              accent="168 85 247" // Purple: UI / UX
+              icon={
+                <svg viewBox="0 0 24 24" className="h-5 w-5" fill="none" aria-hidden="true">
+                  <path d="M4 5a1 1 0 0 1 1-1h14a1 1 0 0 1 1 1v2a1 1 0 0 1-1 1H5a1 1 0 0 1-1-1V5Z" stroke="currentColor" strokeWidth="1.6" opacity="0.9" />
+                  <path d="M4 11a1 1 0 0 1 1-1h14a1 1 0 0 1 1 1v8a1 1 0 0 1-1 1H5a1 1 0 0 1-1-1v-8Z" stroke="currentColor" strokeWidth="1.6" opacity="0.55" />
+                  <path d="M8 8h8M8 14h8" stroke="currentColor" strokeWidth="1.6" opacity="0.55" strokeLinecap="round" />
+                </svg>
+              }
+              title="Best UI"
+              subtitle="Frictionless modern experience"
+              tags={["UX", "MODERN"]}
+              body="We're modernizing everything from ordering and returns to customer support — creating a frictionless, contemporary experience."
+              chips={["SEAMLESS", "MODERN"]}
             />
           </div>
         </div>
