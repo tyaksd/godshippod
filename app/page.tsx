@@ -12,14 +12,28 @@ import { Tag, TrendingUp, Boxes, Layers, Factory, MapPin } from 'lucide-react';
 export default function Page() {
   const router = useRouter();
   const [isHovered, setIsHovered] = useState(false);
-  const { isSignedIn } = useUser();
+  const { isSignedIn, isLoaded } = useUser();
 
   useEffect(() => {
+    // ログイン状態が読み込まれたら処理
+    if (!isLoaded) return;
+
+    // ログイン済みの場合は /dashboard にリダイレクト
+    if (isSignedIn) {
+      router.replace('/dashboard');
+      return;
+    }
+
     // 本番環境でのみ /lp にリダイレクト
     if (process.env.NODE_ENV === 'production') {
       router.replace('/lp');
     }
-  }, [router]);
+  }, [router, isSignedIn, isLoaded]);
+
+  // ログイン済みの場合はリダイレクト中なので何も表示しない
+  if (isLoaded && isSignedIn) {
+    return null;
+  }
 
   // 本番環境ではリダイレクト中なので何も表示しない
   // 開発環境では "hello" を表示
