@@ -147,7 +147,13 @@ export default function OrderInfoPage() {
           <Image src="/order.png" alt="Order" width={30} height={30} className="object-contain" />
         </div>
         <div style={{ marginTop: '1.5rem' }}>
-          <Image src="/settings.png" alt="Settings" width={30} height={30} className="object-contain" />
+          <button
+            onClick={() => router.push('/dashboard/settings')}
+            aria-label="Settings"
+            style={{ background: 'transparent', border: 'none', padding: 0, cursor: 'pointer' }}
+          >
+            <Image src="/settings.png" alt="Settings" width={30} height={30} className="object-contain" />
+          </button>
         </div>
       </div>
 

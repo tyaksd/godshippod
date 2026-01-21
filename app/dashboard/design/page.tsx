@@ -396,14 +396,20 @@ export default function DesignPage() {
           justifyContent: 'flex-start',
           paddingTop: '0.5rem'
         }}
-      >
-        <Image
-          src="/gblack2.png"
-          alt="Godship Logo"
-          width={60}
-          height={60}
-          className="object-contain"
-        />
+        >
+        <button
+          onClick={() => router.push('/dashboard')}
+          aria-label="Back to dashboard"
+          style={{ background: 'transparent', border: 'none', padding: 0, cursor: 'pointer' }}
+        >
+          <Image
+            src="/gblack2.png"
+            alt="Godship Logo"
+            width={60}
+            height={60}
+            className="object-contain"
+          />
+        </button>
         <div style={{ marginTop: '0.5rem' }}>
           <Image
             src="/order.png"
@@ -414,13 +420,19 @@ export default function DesignPage() {
           />
         </div>
         <div style={{ marginTop: '1.5rem' }}>
-          <Image
-            src="/settings.png"
-            alt="Settings"
-            width={30}
-            height={30}
-            className="object-contain"
-          />
+          <button
+            onClick={() => router.push('/dashboard/settings')}
+            aria-label="Settings"
+            style={{ background: 'transparent', border: 'none', padding: 0, cursor: 'pointer' }}
+          >
+            <Image
+              src="/settings.png"
+              alt="Settings"
+              width={30}
+              height={30}
+              className="object-contain"
+            />
+          </button>
         </div>
       </div>
       <div style={{ marginLeft: '75px', padding: '1rem', display: 'flex', gap: '2rem', width: '100%' }}>

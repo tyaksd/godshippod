@@ -51,3 +51,44 @@ CREATE POLICY "Allow public insert" ON "contact-submissions"
   TO public
   WITH CHECK (true);
 
+-- User settingsテーブルを作成
+CREATE TABLE IF NOT EXISTS "user-settings" (
+  id UUID DEFAULT gen_random_uuid() PRIMARY KEY,
+  clerk_id TEXT NOT NULL UNIQUE,
+  name TEXT,
+  address TEXT,
+  email TEXT,
+  phone_number TEXT,
+  payment_info TEXT,
+  brand_name TEXT,
+  brand_link TEXT,
+  created_at TIMESTAMP WITH TIME ZONE DEFAULT NOW(),
+  updated_at TIMESTAMP WITH TIME ZONE DEFAULT NOW()
+);
+
+-- インデックスを追加
+CREATE INDEX IF NOT EXISTS idx_user_settings_clerk_id ON "user-settings"(clerk_id);
+CREATE INDEX IF NOT EXISTS idx_user_settings_email ON "user-settings"(email);
+
+-- Row Level Security (RLS) を有効化
+ALTER TABLE "user-settings" ENABLE ROW LEVEL SECURITY;
+
+-- 認証済みユーザーが自分のデータをINSERTできるポリシー
+CREATE POLICY "Allow authenticated insert" ON "user-settings"
+  FOR INSERT
+  TO authenticated
+  WITH CHECK (true);
+
+-- 認証済みユーザーが自分のデータをSELECTできるポリシー
+CREATE POLICY "Allow authenticated select" ON "user-settings"
+  FOR SELECT
+  TO authenticated
+  USING (true);
+
+-- 認証済みユーザーが自分のデータをUPDATEできるポリシー
+CREATE POLICY "Allow authenticated update" ON "user-settings"
+  FOR UPDATE
+  TO authenticated
+  USING (true)
+  WITH CHECK (true);
+
