@@ -9,28 +9,28 @@ export default function OrderInfoPage() {
   const [previewSrc, setPreviewSrc] = useState<string | null>(null);
   const [quantity, setQuantity] = useState<number>(1);
   const [selectedSize, setSelectedSize] = useState<string>('M');
+  const [firstName, setFirstName] = useState<string>('');
+  const [lastName, setLastName] = useState<string>('');
+  const [email, setEmail] = useState<string>('');
+  const [phone, setPhone] = useState<string>('');
+  const [addressLine1, setAddressLine1] = useState<string>('');
+  const [addressLine2, setAddressLine2] = useState<string>('');
   const [stateRegion, setStateRegion] = useState<string>('NY');
   const [city, setCity] = useState<string>('');
   const [zip, setZip] = useState<string>('');
+  const [country, setCountry] = useState<string>('US');
   const [zipStatus, setZipStatus] = useState<'idle' | 'loading' | 'ok' | 'error'>('idle');
   const [deliveryDate, setDeliveryDate] = useState<string | null>(null);
+  const [useSavedSettings, setUseSavedSettings] = useState(false);
+  const [useSavedLoading, setUseSavedLoading] = useState(false);
 
   useEffect(() => {
     const src = sessionStorage.getItem('designCompositePng');
     if (src) setPreviewSrc(src);
     
-    const raw = localStorage.getItem('orderQuantity');
-    if (raw) {
-      const n = parseInt(raw, 10);
-      if (Number.isFinite(n) && n > 0) {
-        setQuantity(n);
-      } else {
-        setQuantity(1);
-        localStorage.setItem('orderQuantity', '1');
-      }
-    } else {
-      setQuantity(1);
-    }
+    // ページに入るたびに quantity は必ず 1 にリセット
+    setQuantity(1);
+    localStorage.setItem('orderQuantity', '1');
     
     const size = localStorage.getItem('selectedSize');
     if (size && ['S', 'M', 'L', 'XL', '2XL'].includes(size)) {
@@ -313,16 +313,68 @@ export default function OrderInfoPage() {
             </div>
           </div>
 
+          <label
+            style={{
+              display: 'flex',
+              alignItems: 'center',
+              gap: '0.5rem',
+              fontSize: '12px',
+              fontWeight: 700,
+              color: '#111',
+              marginBottom: '0.75rem'
+            }}
+          >
+            <input
+              type="checkbox"
+              checked={useSavedSettings}
+              onChange={async (e) => {
+                const checked = e.target.checked;
+                setUseSavedSettings(checked);
+                if (!checked) return;
+
+                setUseSavedLoading(true);
+                try {
+                  const res = await fetch('/api/user-settings', { method: 'GET' });
+                  const json = (await res.json()) as { data?: any; error?: string };
+                  if (!res.ok) throw new Error(json.error || 'Failed to load saved settings');
+                  const data = json.data;
+                  if (!data) return;
+
+                  setFirstName(data.first_name || '');
+                  setLastName(data.last_name || '');
+                  setEmail(data.email || '');
+                  setPhone(data.phone_number || '');
+                  setAddressLine1(data.address_line1 || '');
+                  setAddressLine2(data.address_line2 || '');
+                  setCity(data.city || '');
+                  setStateRegion(data.state_region || '');
+                  const onlyZip = (data.zip_code || '').toString().replace(/\D/g, '').slice(0, 5);
+                  setZip(onlyZip);
+                  if (onlyZip) localStorage.setItem('shippingZip', onlyZip);
+                  if (data.city) localStorage.setItem('shippingCity', data.city);
+                  if (data.state_region) localStorage.setItem('shippingStateRegion', data.state_region);
+                  setCountry(data.country || 'US');
+                } catch {
+                  // ignore; user can still type manually
+                } finally {
+                  setUseSavedLoading(false);
+                }
+              }}
+              disabled={useSavedLoading}
+            />
+            Same as my saved address {useSavedLoading ? '(Loading...)' : ''}
+          </label>
+
           <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '0.75rem' }}>
-            <Field label="First name" />
-            <Field label="Last name" />
-            <Field label="Email" />
-            <Field label="Phone (optional)" />
+            <Field label="First name" value={firstName} onChange={(v) => setFirstName(v)} />
+            <Field label="Last name" value={lastName} onChange={(v) => setLastName(v)} />
+            <Field label="Email" value={email} onChange={(v) => setEmail(v)} />
+            <Field label="Phone (optional)" value={phone} onChange={(v) => setPhone(v)} />
             <div style={{ gridColumn: '1 / -1' }}>
-              <Field label="Address line 1" />
+              <Field label="Address line 1" value={addressLine1} onChange={(v) => setAddressLine1(v)} />
             </div>
             <div style={{ gridColumn: '1 / -1' }}>
-              <Field label="Address line 2 (optional)" />
+              <Field label="Address line 2 (optional)" value={addressLine2} onChange={(v) => setAddressLine2(v)} />
             </div>
             <Field
               label="City"
@@ -354,7 +406,7 @@ export default function OrderInfoPage() {
               }}
               inputMode="numeric"
             />
-            <Field label="Country" value="US" disabled />
+            <Field label="Country" value={country} disabled />
           </div>
           <div style={{ marginTop: '0.6rem', fontSize: '12px', color: zipStatus === 'error' ? '#b00020' : '#666' }}>
             {zipStatus === 'loading' && 'Looking up ZIP…'}
