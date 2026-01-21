@@ -1,6 +1,7 @@
 'use client';
 
 import { useState, useEffect } from 'react';
+import { useRouter } from 'next/navigation';
 import Image from 'next/image';
 import Link from 'next/link';
 import { SignInButton, UserButton, useUser } from '@clerk/nextjs';
@@ -238,12 +239,24 @@ function UseCaseCard({
 }
 
 export default function Home() {
+  const router = useRouter();
   const [currentIndex, setCurrentIndex] = useState(0);
   const [isVisible, setIsVisible] = useState(true);
   const [email, setEmail] = useState('');
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [message, setMessage] = useState<{ type: 'success' | 'error'; text: string } | null>(null);
-  const { isSignedIn } = useUser();
+  const { isSignedIn, isLoaded } = useUser();
+
+  useEffect(() => {
+    // ログイン状態が読み込まれたら処理
+    if (!isLoaded) return;
+
+    // ログイン済みの場合は /dashboard にリダイレクト
+    if (isSignedIn) {
+      router.replace('/dashboard');
+      return;
+    }
+  }, [router, isSignedIn, isLoaded]);
 
   useEffect(() => {
     // 各都市名を表示する時間（2秒）
@@ -329,6 +342,11 @@ export default function Home() {
       setIsSubmitting(false);
     }
   };
+
+  // ログイン済みの場合はリダイレクト中なので何も表示しない
+  if (isLoaded && isSignedIn) {
+    return null;
+  }
 
   return (
     <div className="bg-white overflow-x-hidden">
