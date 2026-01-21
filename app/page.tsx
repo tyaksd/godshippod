@@ -4,6 +4,7 @@ import { useState, useEffect } from 'react';
 import { useRouter } from 'next/navigation';
 import Image from 'next/image';
 import Link from 'next/link';
+import { SignInButton, SignUpButton, UserButton, useUser } from '@clerk/nextjs';
 import { supabase } from '@/lib/supabase';
 import { Tag, TrendingUp, Boxes, Layers, Factory, MapPin } from 'lucide-react';
 
@@ -11,6 +12,7 @@ import { Tag, TrendingUp, Boxes, Layers, Factory, MapPin } from 'lucide-react';
 export default function Page() {
   const router = useRouter();
   const [isHovered, setIsHovered] = useState(false);
+  const { isSignedIn } = useUser();
 
   useEffect(() => {
     // 本番環境でのみ /lp にリダイレクト
@@ -49,12 +51,22 @@ export default function Page() {
             >
               Contact
             </Link>
-            <button className="text-white hover:text-white/80 transition-colors px-3 py-2  rounded-md hover:bg-white/30 text-sm">
-              Log in
-            </button>
-            <button className="text-white hover:text-white/80 transition-colors px-3 py-2 rounded-md hover:bg-white/30 text-sm">
-              Sign up
-            </button>
+            {isSignedIn ? (
+              <UserButton afterSignOutUrl="/" />
+            ) : (
+              <>
+                <SignInButton mode="modal">
+                  <button className="text-white hover:text-white/80 transition-colors px-3 py-2 rounded-md hover:bg-white/30 text-sm">
+                    Log in
+                  </button>
+                </SignInButton>
+                <SignUpButton mode="modal">
+                  <button className="text-white hover:text-white/80 transition-colors px-3 py-2 rounded-md hover:bg-white/30 text-sm">
+                    Sign up
+                  </button>
+                </SignUpButton>
+              </>
+            )}
           </div>
         </div>
       </header>
