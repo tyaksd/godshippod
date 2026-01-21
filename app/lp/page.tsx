@@ -377,7 +377,7 @@ export default function Home() {
           {isSignedIn ? (
             <UserButton afterSignOutUrl="/lp" />
           ) : (
-            <SignInButton mode="modal">
+            <SignInButton mode="modal" forceRedirectUrl="/dashboard">
               <button className="text-white hover:text-white/80 transition-colors px-3 py-2 rounded-md hover:bg-white/10 text-sm font-medium">
                 Log in
               </button>

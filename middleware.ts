@@ -1,6 +1,7 @@
 import { clerkMiddleware, createRouteMatcher } from "@clerk/nextjs/server";
 
-const isPublicRoute = createRouteMatcher([
+// 基本の公開ルート
+const basePublicRoutes = [
   "/",
   "/lp",
   "/about",
@@ -8,10 +9,23 @@ const isPublicRoute = createRouteMatcher([
   "/sign-in(.*)",
   "/sign-up(.*)",
   "/api(.*)",
-]);
+];
+
+// 開発環境では/dashboardも公開ルートに含める
+const publicRoutes = process.env.NODE_ENV === 'production' 
+  ? basePublicRoutes 
+  : [...basePublicRoutes, "/dashboard(.*)"];
+
+const isPublicRoute = createRouteMatcher(publicRoutes);
+const isDashboardRoute = createRouteMatcher(["/dashboard(.*)"]);
 
 export default clerkMiddleware(async (auth, request) => {
-  if (!isPublicRoute(request)) {
+  // 本番環境では、/dashboard配下はログイン必須
+  if (process.env.NODE_ENV === 'production' && isDashboardRoute(request)) {
+    await auth.protect();
+  }
+  // その他の非公開ルートも保護
+  else if (!isPublicRoute(request)) {
     await auth.protect();
   }
 });

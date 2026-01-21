@@ -55,12 +55,12 @@ export default function Page() {
               <UserButton afterSignOutUrl="/" />
             ) : (
               <>
-                <SignInButton mode="modal">
+                <SignInButton mode="modal" forceRedirectUrl="/dashboard">
                   <button className="text-white hover:text-white/80 transition-colors px-3 py-2 rounded-md hover:bg-white/30 text-sm">
                     Log in
                   </button>
                 </SignInButton>
-                <SignUpButton mode="modal">
+                <SignUpButton mode="modal" forceRedirectUrl="/dashboard">
                   <button className="text-white hover:text-white/80 transition-colors px-3 py-2 rounded-md hover:bg-white/30 text-sm">
                     Sign up
                   </button>
