@@ -3,6 +3,7 @@
 import { useState, useEffect } from 'react';
 import Image from 'next/image';
 import Link from 'next/link';
+import { SignInButton, UserButton, useUser } from '@clerk/nextjs';
 import { supabase } from '@/lib/supabase';
 import { Tag, TrendingUp, Boxes, Layers, Factory, MapPin } from 'lucide-react';
 
@@ -242,6 +243,7 @@ export default function Home() {
   const [email, setEmail] = useState('');
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [message, setMessage] = useState<{ type: 'success' | 'error'; text: string } | null>(null);
+  const { isSignedIn } = useUser();
 
   useEffect(() => {
     // 各都市名を表示する時間（2秒）
@@ -368,6 +370,19 @@ export default function Home() {
             height={240}
             className="object-contain w-[145px] h-[140px] sm:w-[163px] sm:h-[163px] md:w-[191px] md:h-[191px] lg:w-[200px] lg:h-[200px]"
           />
+        </div>
+
+        {/* Log in button in top right */}
+        <div className="absolute top-4 right-4 sm:top-6 sm:right-6 md:top-8 md:right-8 z-10">
+          {isSignedIn ? (
+            <UserButton afterSignOutUrl="/lp" />
+          ) : (
+            <SignInButton mode="modal">
+              <button className="text-white hover:text-white/80 transition-colors px-3 py-2 rounded-md hover:bg-white/10 text-sm font-medium">
+                Log in
+              </button>
+            </SignInButton>
+          )}
         </div>
 
         {/* Main content */}
