@@ -350,7 +350,7 @@ export default function Home() {
           />
         </div>
         {/* Overlay layers */}
-        <div className="absolute inset-0 z-0 bg-black/10"></div>
+        <div className="absolute inset-0 z-0 bg-black/20"></div>
         <div className="absolute inset-0 z-0 bg-[radial-gradient(circle_at_center,_transparent_0%,_rgba(0,0,0,0.3)_100%)]"></div>
         <div 
           className="absolute inset-0 z-0 opacity-[0.03]"
