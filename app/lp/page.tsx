@@ -662,7 +662,7 @@ export default function Home() {
               title="High quality"
               subtitle="World's highest quality"
               tags={["QUALITY", "JAPAN"]}
-              body="We use printers from world-class Japanese companies. Our founder is Japanese, enabling direct negotiation."
+              body="We use DTF printers and machinesfrom world-class Japanese companies. Our founder is Japanese, enabling direct communication."
               chips={["PREMIUM", ]}
             />
 
