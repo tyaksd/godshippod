@@ -415,9 +415,9 @@ export default function Home() {
 
           {/* Description */}
           <p className="text-sm sm:text-base text-white/90 text-center max-w-2xl">
-            Manufactured in our high-tech factories near major cities.
+          Produced in our high-tech facilities near major cities.
             <br />
-            The on-demand apparel production infrastructure.
+            The on-demand apparel manufacturing & fulfillment.
           </p>
 
           {/* Email form */}
@@ -501,9 +501,7 @@ export default function Home() {
             </h2>
 
             <p className="mt-4 text-base leading-relaxed text-zinc-300/80 md:text-lg">
-            5–21 day delivery. Unpredictable quality. Zero brand experience.
-              <br />
-              And people still call this "POD".
+            Unpredictable quality. 5–21 day delivery. Frustrating experience.
             </p>
           </div>
 
@@ -645,7 +643,7 @@ export default function Home() {
             </h2>
 
             <p className="mt-4 text-sm leading-relaxed text-white/70 md:text-base">
-            We’re a tech company replacing legacy POD chaos with a controlled system.
+            We’re a Silicon Valley tech company replacing legacy POD chaos with a controlled system.
             </p>
           </div>
 
@@ -662,7 +660,8 @@ export default function Home() {
               title="High quality"
               subtitle="World's highest quality"
               tags={["QUALITY", "JAPAN"]}
-              body="We use DTF printers and machines from world-class Japanese companies. Our founder is Japanese, enabling direct communication."
+              body="We partner with world-class Japanese DTF printer manufacturers, with direct communication enabled by our Japanese founder.
+We also design, develop, and control machines across the entire production process in-house."
               chips={["PREMIUM", "DTF"]}
             />
 
@@ -691,7 +690,7 @@ export default function Home() {
                 </svg>
               }
               title="Autonomous facility"
-              subtitle="Controlled by our proprietary OS"
+              subtitle="Controlled by our proprietary OS and AI"
               tags={["CONTROL",　"SPEED", "TRACEABLE"]}
               body="Every step is software-defined. We're developing a fully automated, high-tech facility that eliminates human intervention."
               chips={["ACCOUNTABLE", "STANDARDIZED", "< 24-HOUR TARGET"]}
