@@ -406,7 +406,7 @@ export default function Home() {
         {/* Main content */}
         <div className="flex flex-col items-center gap-4 max-w-3xl relative z-10">
           <h1 className="text-4xl sm:text-4xl md:text-5xl lg:text-6xl font-bold text-white text-center tracking-tight leading-[1.05]">
-            High-quality tees.
+            High-quality apparel.
             <br />
             Delivered in 3 days.
             <br />
