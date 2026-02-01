@@ -934,7 +934,7 @@ We also design, develop, and control machines across the entire production proce
                   <div className="text-sm font-semibold text-white">NY and surrounding states only</div>
                   <p className="mt-2 text-sm text-white/70">
                     Orders are limited to customers living near the factory.
-                    States: NY, NJ, CT, MA, DE, PA, MD, ME, VT, NH, RI
+                    States: NY, NJ, CT, MA, DE, PA, MD, ME, VT, NH, RI.
                     Speed and consistency first.
                   </p>
                 </div>
