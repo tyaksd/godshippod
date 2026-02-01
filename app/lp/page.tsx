@@ -704,10 +704,10 @@ We also design, develop, and control machines across the entire production proce
                   <path d="M4.5 6.5A2 2 0 0 1 6.5 4.5h11A2 2 0 0 1 19.5 6.5v11a2 2 0 0 1-2 2h-11a2 2 0 0 1-2-2v-11Z" stroke="currentColor" strokeWidth="1.4" opacity="0.55" />
                 </svg>
               }
-              title="SKU-limited"
+              title="Apparel only"
               subtitle="Repeatability by design"
               tags={["THROUGHPUT", "CONSISTENCY"]}
-              body="We start narrow to maximize throughput, consistency, and quality control."
+              body="We focus on apparel only to maximize throughput, consistency, and quality control."
               chips={["MEASURED", "STANDARDIZED"]}
             />
 
