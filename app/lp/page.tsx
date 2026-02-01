@@ -944,7 +944,7 @@ We also design, develop, and control machines across the entire production proce
                   <div className="flex flex-wrap items-center gap-3 text-sm text-white/70">
                     <span className="text-white/85 font-medium">Next:</span>
 
-                    {["Los Angeles", "London", "Tokyo", "Paris", "Seoul", "Berlin", "Dubai", "Mumbai", "Singapore", "São Paulo"].map((city) => (
+                    {["California", "Texas", "All US states", "Canada",　"UK", "France", "Germany",  "European countries", "Asian countries"].map((city) => (
                       <span
                         key={city}
                         className="rounded-full border border-white/10 bg-white/[0.035] px-3 py-1 text-xs text-white/70 backdrop-blur-md"
