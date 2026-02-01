@@ -679,7 +679,7 @@ We also design, develop, and control machines across the entire production proce
               tags={["SPEED", "RELIABILITY"]}
               body="Facilities near major metros ship exclusively to local customers, enabling faster and more predictable delivery.
 "
-              chips={["2-DAY TARGET"]}
+              chips={["2-DAY TARGET by UPS Ground"]}
             />
 
             <FixCard
