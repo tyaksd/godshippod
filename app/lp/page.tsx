@@ -924,9 +924,9 @@ We also design, develop, and control machines across the entire production proce
               <div className="space-y-6">
                 {/* Rule cards */}
                 <div className="rounded-2xl border border-white/10 bg-white/[0.045] p-6 backdrop-blur-sm">
-                  <div className="text-sm font-semibold text-white">Black tee only</div>
+                  <div className="text-sm font-semibold text-white">Black/White tees only</div>
                   <p className="mt-2 text-sm text-white/70">
-                    One SKU to eliminate variation and maximize throughput.
+                    Few SKU to eliminate variation and maximize throughput.
                   </p>
                 </div>
 
@@ -934,6 +934,7 @@ We also design, develop, and control machines across the entire production proce
                   <div className="text-sm font-semibold text-white">NY and surrounding states only</div>
                   <p className="mt-2 text-sm text-white/70">
                     Orders are limited to customers living near the factory.
+                    States: NY, NJ, CT, MA, DE, PA, MD, ME, VT, NH, RI
                     Speed and consistency first.
                   </p>
                 </div>
