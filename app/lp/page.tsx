@@ -660,7 +660,8 @@ export default function Home() {
               title="High quality"
               subtitle="World's highest quality"
               tags={["QUALITY", "JAPAN"]}
-              body="We partner with world-class Japanese DTF printer manufacturers, with direct communication enabled by our Japanese founder.
+              body="We partner with world-class Japanese DTF printer manufacturers, enabled by direct communication with our Japanese founder.
+
 We also design, develop, and control machines across the entire production process in-house."
               chips={["PREMIUM", "DTF"]}
             />
@@ -676,7 +677,8 @@ We also design, develop, and control machines across the entire production proce
               title="City-local delivery"
               subtitle="Metro-only for reliability"
               tags={["SPEED", "RELIABILITY"]}
-              body="Facilities near major metros ship exclusively to local customers — faster and more predictable."
+              body="Facilities near major metros ship exclusively to local customers, enabling faster and more predictable delivery.
+"
               chips={["2-DAY TARGET"]}
             />
 
@@ -926,7 +928,7 @@ We also design, develop, and control machines across the entire production proce
                 <div className="rounded-2xl border border-white/10 bg-white/[0.045] p-6 backdrop-blur-sm">
                   <div className="text-sm font-semibold text-white">Black/White tees only</div>
                   <p className="mt-2 text-sm text-white/70">
-                    Few SKU to eliminate variation and maximize throughput.
+                    Few SKUs to eliminate variation and maximize throughput.
                   </p>
                 </div>
 
@@ -1079,7 +1081,7 @@ We also design, develop, and control machines across the entire production proce
                   </div>
 
                   <div className="text-sm font-semibold text-white">
-                    Auto-route: NY-area + black tee orders
+                    Auto-route: NY-area + black/white tees orders
                   </div>
                 </div>
 
