@@ -660,9 +660,7 @@ export default function Home() {
               title="High quality"
               subtitle="World's highest quality"
               tags={["QUALITY", "JAPAN"]}
-              body="We partner with world-class Japanese DTF printer manufacturers, enabled by direct communication with our Japanese founder.
-
-We also design, develop, and control machines across the entire production process in-house."
+              body="We partner with world-class Japanese DTF printer manufacturers. We also design, develop, and control machines across the entire production process in-house."
               chips={["PREMIUM", "DTF"]}
             />
 
