@@ -924,9 +924,9 @@ export default function Home() {
               <div className="space-y-6">
                 {/* Rule cards */}
                 <div className="rounded-2xl border border-white/10 bg-white/[0.045] p-6 backdrop-blur-sm">
-                  <div className="text-sm font-semibold text-white">Black/White tees only</div>
+                  <div className="text-sm font-semibold text-white">Tees only</div>
                   <p className="mt-2 text-sm text-white/70">
-                    Few SKUs to eliminate variation and maximize throughput.
+                    Start with few SKUs to eliminate variation and maximize throughput.
                   </p>
                 </div>
 
@@ -1079,7 +1079,7 @@ export default function Home() {
                   </div>
 
                   <div className="text-sm font-semibold text-white">
-                    Auto-route: NY-area + black/white tees orders
+                    Auto-route: NY-area + tees orders
                   </div>
                 </div>
 
@@ -1134,7 +1134,7 @@ export default function Home() {
               accent="125 211 252"
               eyebrow="For brands already using POD"
               title="Upgrade your best customers first."
-              body="Keep Printful/Printify/Gelato for most orders. Auto-route NY black-tee orders to Godship to deliver a premium experience where it matters most."
+              body="Keep Printful/Printify/Gelato for most orders. Auto-route NY-area & tees orders to Godship to deliver a premium experience where it matters most."
               outcomes={["Faster delivery (NY)", "Consistent quality", "Better brand experience"]}
             />
 

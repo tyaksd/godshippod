@@ -107,7 +107,7 @@ export default function OrderInfoPage() {
   const basePrice = 13.0;
   const stateNorm = stateRegion.trim().toUpperCase();
   const shippingFiveStates = new Set(['NY', 'NJ', 'DE', 'PA', 'CT']);
-  const shippingCost = shippingFiveStates.has(stateNorm) ? 5.0 : 6.0;
+  const shippingCost = shippingFiveStates.has(stateNorm) ? 5.0 : 6.5;
   const computedTotal = basePrice * quantity + shippingCost;
 
   return (
@@ -144,7 +144,13 @@ export default function OrderInfoPage() {
           <Image src="/gblack2.png" alt="Godship Logo" width={60} height={60} className="object-contain" />
         </button>
         <div style={{ marginTop: '0.5rem' }}>
-          <Image src="/order.png" alt="Order" width={30} height={30} className="object-contain" />
+          <button
+            onClick={() => router.push('/dashboard/order')}
+            aria-label="Order"
+            style={{ background: 'transparent', border: 'none', padding: 0, cursor: 'pointer' }}
+          >
+            <Image src="/order.png" alt="Order" width={30} height={30} className="object-contain" />
+          </button>
         </div>
         <div style={{ marginTop: '1.5rem' }}>
           <button
@@ -283,7 +289,7 @@ export default function OrderInfoPage() {
               )}
             </div>
             <div style={{ marginTop: '0.2rem', fontSize: '12px', color: '#666' }}>
-              Shipping info: NY, NJ, DE, PA, CT → +$5.00 / Other states → +$6.00
+              Shipping info: NY, NJ, DE, PA, CT → +$6.50 / Other states → +$6.50
             </div>
           </div>
         </div>

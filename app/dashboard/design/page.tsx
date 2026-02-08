@@ -411,13 +411,19 @@ export default function DesignPage() {
           />
         </button>
         <div style={{ marginTop: '0.5rem' }}>
-          <Image
-            src="/order.png"
-            alt="Order"
-            width={30}
-            height={30}
-            className="object-contain"
-          />
+          <button
+            onClick={() => router.push('/dashboard/order')}
+            aria-label="Order"
+            style={{ background: 'transparent', border: 'none', padding: 0, cursor: 'pointer' }}
+          >
+            <Image
+              src="/order.png"
+              alt="Order"
+              width={30}
+              height={30}
+              className="object-contain"
+            />
+          </button>
         </div>
         <div style={{ marginTop: '1.5rem' }}>
           <button
