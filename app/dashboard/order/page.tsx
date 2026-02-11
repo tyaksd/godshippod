@@ -22,17 +22,20 @@ type OrderStatus = 'Order received' | 'Printing' | 'Packed' | 'Shipped' | 'Arriv
 const OTHER_STATES = ['NJ', 'CT', 'MA', 'DE', 'PA', 'MD', 'ME', 'VT', 'NH', 'RI'] as const;
 
 const ALPHANUM = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789';
-function randomOrderId(len = 8): string {
+function deterministicOrderId(seed: number, len = 8): string {
   let s = '';
-  for (let i = 0; i < len; i++) s += ALPHANUM[Math.floor(Math.random() * ALPHANUM.length)];
+  for (let i = 0; i < len; i++) {
+    const idx = (seed * 31 + i * 17) % ALPHANUM.length;
+    s += ALPHANUM[Math.abs(idx)];
+  }
   return s;
 }
 
 const FIRST_NAMES = ['James', 'Emma', 'Liam', 'Olivia', 'Noah', 'Ava', 'Oliver', 'Sophia', 'Elijah', 'Isabella', 'Lucas', 'Mia', 'Mason', 'Charlotte', 'Ethan', 'Amelia'];
 const LAST_NAMES = ['Smith', 'Johnson', 'Williams', 'Brown', 'Jones', 'Garcia', 'Miller', 'Davis', 'Rodriguez', 'Wilson', 'Martinez', 'Anderson', 'Taylor', 'Thomas', 'Moore', 'Jackson'];
-function randomName(): string {
-  const first = FIRST_NAMES[Math.floor(Math.random() * FIRST_NAMES.length)];
-  const last = LAST_NAMES[Math.floor(Math.random() * LAST_NAMES.length)];
+function deterministicName(seed: number): string {
+  const first = FIRST_NAMES[Math.abs(seed) % FIRST_NAMES.length];
+  const last = LAST_NAMES[Math.abs(seed * 7 + 11) % LAST_NAMES.length];
   return `${first} ${last}`;
 }
 
@@ -58,8 +61,8 @@ function buildMockOrders(): { id: number; orderId: string; name: string; orderDa
         : nonTshirtImageIndices[(id - 1) % nonTshirtImageIndices.length];
       orders.push({
         id,
-        orderId: randomOrderId(),
-        name: randomName(),
+        orderId: deterministicOrderId(id),
+        name: deterministicName(id),
         orderDate: formatDate(d),
         dateSortKey: d.getTime(),
         status,
@@ -359,7 +362,20 @@ export default function OrderPage() {
                     <td style={{ padding: '0.45rem 1rem' }}>
                       <button
                         type="button"
-                        onClick={() => router.push(`/dashboard/order/${order.orderId}`)}
+                        onClick={() => {
+                          const stepMap: Record<OrderStatus, number> = {
+                            'Order received': 0,
+                            'Printing': 1,
+                            'Packed': 3,
+                            'Shipped': 4,
+                            'Arrived': 5
+                          };
+                          const step = stepMap[order.status];
+                          const params = new URLSearchParams();
+                          if (step !== undefined) params.set('step', String(step));
+                          params.set('date', order.orderDate);
+                          router.push(`/dashboard/order/${order.orderId}?${params.toString()}`);
+                        }}
                         style={{
                           background: 'none',
                           border: 'none',

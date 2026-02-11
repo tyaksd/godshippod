@@ -10,3 +10,5 @@ Get high-quality tees to your customers within 3 days
 
 オーダーid, clerk_id, それに紐付けるtracking 
 /tracking飛べないように
+
+shipping costを動的に計算する

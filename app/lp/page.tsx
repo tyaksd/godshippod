@@ -501,7 +501,7 @@ export default function Home() {
             </h2>
 
             <p className="mt-4 text-base leading-relaxed text-zinc-300/80 md:text-lg">
-            Unpredictable quality. 5–21 day delivery. Frustrating experience.
+            Unpredictable quality. 7-10+ day delivery. Frustrating experience.
             </p>
           </div>
 
@@ -563,7 +563,7 @@ export default function Home() {
                 </h3>
 
                 <p className="mt-3 text-sm leading-relaxed text-zinc-300/80">
-                  Orders take <span className="text-zinc-100 font-medium">5–21 days</span>.
+                  Orders take <span className="text-zinc-100 font-medium">7-10 days </span> on average in the US. Plus, they sometimes go missing.
                   <br />
                   That hurts conversion rates.
                 </p>
