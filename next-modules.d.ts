@@ -5,6 +5,7 @@ declare module 'next/navigation' {
     back(): void;
     prefetch(href: string): void;
   };
+  export function useParams(): Record<string, string | string[]>;
   export function usePathname(): string;
   export function useSearchParams(): unknown;
 }
