@@ -406,7 +406,7 @@ export default function Home() {
         {/* Main content */}
         <div className="flex flex-col items-center gap-4 max-w-3xl relative z-10">
           <h1 className="text-4xl sm:text-4xl md:text-5xl lg:text-6xl font-bold text-white text-center tracking-tight leading-[1.05]">
-            High-quality apparel.
+            High-quality tees.
             <br />
             Delivered in 3 days.
             <br />
@@ -415,7 +415,7 @@ export default function Home() {
 
           {/* Description */}
           <p className="text-sm sm:text-base text-white/90 text-center max-w-2xl">
-          Produced in our high-tech facilities near major cities.
+          Produced in our high-tech facilities near your customers.
             <br />
             The on-demand apparel manufacturing & fulfillment.
           </p>
@@ -689,10 +689,10 @@ export default function Home() {
                   <path d="M6.5 9V7.2A2.2 2.2 0 0 1 8.7 5h2" stroke="currentColor" strokeWidth="1.4" opacity="0.55" />
                 </svg>
               }
-              title="Autonomous facility"
+              title="Optimized facility"
               subtitle="Controlled by our proprietary OS and AI"
               tags={["CONTROL",　"SPEED", "TRACEABLE"]}
-              body="Every step is software-defined. We're developing a fully automated, high-tech facility that eliminates human intervention."
+              body="Every step is software-defined. We're developing an automated, high-tech facility."
               chips={["ACCOUNTABLE", "STANDARDIZED", "< 24-HOUR TARGET"]}
             />
 
@@ -704,10 +704,10 @@ export default function Home() {
                   <path d="M4.5 6.5A2 2 0 0 1 6.5 4.5h11A2 2 0 0 1 19.5 6.5v11a2 2 0 0 1-2 2h-11a2 2 0 0 1-2-2v-11Z" stroke="currentColor" strokeWidth="1.4" opacity="0.55" />
                 </svg>
               }
-              title="Apparel only"
+              title="Tees only"
               subtitle="Repeatability by design"
               tags={["THROUGHPUT", "CONSISTENCY"]}
-              body="We focus on apparel only to maximize throughput, consistency, and quality control."
+              body="We focus on tees at first to maximize throughput, consistency, and quality control. We'll expand to other products later."
               chips={["MEASURED", "STANDARDIZED"]}
             />
 
@@ -1079,7 +1079,7 @@ export default function Home() {
                   </div>
 
                   <div className="text-sm font-semibold text-white">
-                    Auto-route: NY-area + tees orders
+                    Auto-route: Tees orders
                   </div>
                 </div>
 
@@ -1116,12 +1116,12 @@ export default function Home() {
                   </div>
 
                   <div className="text-sm font-semibold text-white">
-                    We print, pack, and ship
+                    We print, pack, and ship for you
                   </div>
                 </div>
 
                 <p className="mt-3 text-sm leading-relaxed text-white/70">
-                  Controlled production and a consistent unboxing — faster delivery and fewer surprises.
+                  Controlled production, faster delivery, and reduced costs.
                 </p>
                 </div>
               </div>
