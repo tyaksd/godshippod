@@ -7,7 +7,7 @@ declare module 'next/navigation' {
   };
   export function useParams(): Record<string, string | string[]>;
   export function usePathname(): string;
-  export function useSearchParams(): unknown;
+  export function useSearchParams(): { get(name: string): string | null };
 }
 
 declare module 'next/link' {
