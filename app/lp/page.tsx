@@ -415,7 +415,7 @@ export default function Home() {
 
           {/* Description */}
           <p className="text-sm sm:text-base text-white/90 text-center max-w-2xl">
-          Produced, packed, and shipped on demand from our tech-driven microfactories near end customers.
+          Produced, packed, and shipped on demand from our tech-driven factories near end customers.
             <br />
             The on-demand apparel production & fulfillment.
           </p>
