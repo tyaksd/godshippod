@@ -410,14 +410,14 @@ export default function Home() {
             <br />
             Delivered in 3 days.
             <br />
-            Zero inventory.
+            No inventory.
           </h1>
 
           {/* Description */}
           <p className="text-sm sm:text-base text-white/90 text-center max-w-2xl">
-          Produced in our high-tech facilities near your customers.
+          Produced, packed, and shipped on demand from our tech-driven microfactories near end customers.
             <br />
-            The on-demand apparel manufacturing & fulfillment.
+            The on-demand apparel production & fulfillment.
           </p>
 
           {/* Email form */}
