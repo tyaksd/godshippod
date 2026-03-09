@@ -4,7 +4,7 @@ import { useState, useEffect } from 'react';
 import { useRouter } from 'next/navigation';
 import Image from 'next/image';
 import Link from 'next/link';
-import { SignInButton, UserButton, useUser } from '@clerk/nextjs';
+import { UserButton, useUser } from '@clerk/nextjs';
 import { supabase } from '@/lib/supabase';
 import { Tag, TrendingUp, Boxes, Layers, Factory, MapPin } from 'lucide-react';
 
@@ -390,17 +390,9 @@ export default function Home() {
           />
         </div>
 
-        {/* Log in button in top right */}
+        {/* Log in button in top right (Sign in hidden) */}
         <div className="absolute top-4 right-4 sm:top-6 sm:right-6 md:top-8 md:right-8 z-10">
-          {isSignedIn ? (
-            <UserButton afterSignOutUrl="/lp" />
-          ) : (
-            <SignInButton mode="modal" forceRedirectUrl="/dashboard">
-              <button className="text-white hover:text-white/80 transition-colors px-3 py-2 rounded-md hover:bg-white/10 text-sm font-medium">
-                Log in
-              </button>
-            </SignInButton>
-          )}
+          {isSignedIn ? <UserButton afterSignOutUrl="/lp" /> : null}
         </div>
 
         {/* Main content */}
